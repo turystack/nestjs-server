@@ -1,3 +1,5 @@
+export type ButtonSlots = 'root' | 'loading' | 'leftSection' | 'rightSection'
+
 export type ButtonType = 'button' | 'submit' | 'reset'
 
 export type ButtonSize = 'sm' | 'md' | 'lg' | 'icon'

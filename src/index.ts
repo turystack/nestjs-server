@@ -1,4 +1,4 @@
 import './index.css'
 
 export * from './components/button'
-export const a = 5000
+export * from './components/provider'

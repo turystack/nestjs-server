@@ -1,9 +1,12 @@
 import { Slot } from '@radix-ui/react-slot'
 import { Loader2 } from 'lucide-react'
-import type * as React from 'react'
+import type { PropsWithChildren } from 'react'
 import { tv } from 'tailwind-variants'
 
 import type { ButtonProps } from './button.types'
+
+import { useTuryStack } from '@/components/provider/provider.context'
+import { cn } from '@/support/utils'
 
 const button = tv({
 	base: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
@@ -36,42 +39,71 @@ const button = tv({
 	},
 })
 
-export function Button({
-	form,
-	type = 'button',
-	size = 'md',
-	variant = 'default',
-	leftSection,
-	rightSection,
-	block = false,
-	loading = false,
-	disabled = false,
-	asChild = false,
-	onClick,
-	children,
-}: ButtonProps & {
-	children?: React.ReactNode
-}) {
-	const Comp = asChild ? Slot : 'button'
-	const isDisabled = disabled || loading
+export function Button(props: PropsWithChildren<ButtonProps>) {
+	const {
+		form,
+		type = 'button',
+		size,
+		variant,
+		leftSection,
+		rightSection,
+		block,
+		loading,
+		disabled,
+		asChild,
+		onClick,
+		children,
+	} = props
+
+	const state = useTuryStack()
+
+	const defaults = state?.button?.defaultProps
+
+	const resolved = {
+		asChild: asChild ?? defaults?.asChild ?? false,
+		block: block ?? defaults?.block ?? false,
+		disabled: disabled ?? defaults?.disabled ?? false,
+		loading: loading ?? defaults?.loading ?? false,
+		size: size ?? defaults?.size ?? 'md',
+		variant: variant ?? defaults?.variant ?? 'default',
+	}
+
+	const Comp = resolved.asChild ? Slot : 'button'
+	const isDisabled = resolved.disabled || resolved.loading
+	const classNames = state?.button?.classNames
 
 	return (
 		<Comp
-			className={button({
-				block,
-				size,
-				variant,
-			})}
+			className={cn(
+				button({
+					block: resolved.block,
+					size: resolved.size,
+					variant: resolved.variant,
+				}),
+				classNames?.root,
+			)}
 			disabled={isDisabled}
-			form={asChild ? undefined : form}
+			form={resolved.asChild ? undefined : form}
 			onClick={onClick}
-			type={asChild ? undefined : type}
+			type={resolved.asChild ? undefined : type}
 		>
-			{loading ? <Loader2 className="animate-spin" /> : leftSection}
+			{resolved.loading ? (
+				<span className={classNames?.loading}>
+					<Loader2 className="animate-spin" />
+				</span>
+			) : (
+				<>
+					{leftSection && (
+						<span className={classNames?.leftSection}>{leftSection}</span>
+					)}
 
-			{children}
+					{children}
 
-			{!loading && rightSection}
+					{rightSection && (
+						<span className={classNames?.rightSection}>{rightSection}</span>
+					)}
+				</>
+			)}
 		</Comp>
 	)
 }
