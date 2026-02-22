@@ -1,9 +1,14 @@
 import type { ButtonProps, ButtonSlots } from '@/components/button'
-import type { ComponentClassNameSlots } from '@/support/types'
+import type {
+	ComponentClassNameSlots,
+	ComponentDefaultProps,
+} from '@/support/types'
 
 export type TuryStackProviderProps = {
-	button?: {
-		classNames?: ComponentClassNameSlots<ButtonSlots>
-		defaultProps?: Partial<ButtonProps>
+	components?: {
+		button?: {
+			classNames?: ComponentClassNameSlots<ButtonSlots>
+			defaultProps?: ComponentDefaultProps<ButtonProps>
+		}
 	}
 }

@@ -57,20 +57,22 @@ export function Button(props: PropsWithChildren<ButtonProps>) {
 
 	const state = useTuryStack()
 
-	const defaults = state?.button?.defaultProps
+	const classNames = state?.components?.button?.classNames
+	const defaults = state?.components?.button?.defaultProps
 
 	const resolved = {
 		asChild: asChild ?? defaults?.asChild ?? false,
 		block: block ?? defaults?.block ?? false,
 		disabled: disabled ?? defaults?.disabled ?? false,
+		form: form ?? defaults?.form ?? undefined,
 		loading: loading ?? defaults?.loading ?? false,
 		size: size ?? defaults?.size ?? 'md',
+		type: type ?? defaults?.type ?? 'button',
 		variant: variant ?? defaults?.variant ?? 'default',
 	}
 
 	const Comp = resolved.asChild ? Slot : 'button'
 	const isDisabled = resolved.disabled || resolved.loading
-	const classNames = state?.button?.classNames
 
 	return (
 		<Comp
@@ -83,24 +85,24 @@ export function Button(props: PropsWithChildren<ButtonProps>) {
 				classNames?.root,
 			)}
 			disabled={isDisabled}
-			form={resolved.asChild ? undefined : form}
+			form={resolved.form}
 			onClick={onClick}
-			type={resolved.asChild ? undefined : type}
+			type={resolved.type}
 		>
 			{resolved.loading ? (
-				<span className={classNames?.loading}>
+				<div className={classNames?.loading}>
 					<Loader2 className="animate-spin" />
-				</span>
+				</div>
 			) : (
 				<>
 					{leftSection && (
-						<span className={classNames?.leftSection}>{leftSection}</span>
+						<div className={classNames?.leftSection}>{leftSection}</div>
 					)}
 
 					{children}
 
 					{rightSection && (
-						<span className={classNames?.rightSection}>{rightSection}</span>
+						<div className={classNames?.rightSection}>{rightSection}</div>
 					)}
 				</>
 			)}
