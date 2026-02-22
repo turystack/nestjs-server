@@ -1,4 +1,4 @@
 import './index.css'
 
 export * from './components/button'
-export const a = 30
+export const a = 35
