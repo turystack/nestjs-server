@@ -1,7 +1,7 @@
 import { Loader2 } from 'lucide-react'
 import { tv } from 'tailwind-variants'
 
-import type { TLoaderProps } from './loader.types'
+import type { LoaderProps } from './loader.types'
 
 import { useInternalState } from '@/components/provider/provider.context'
 import { cn } from '@/support/utils'
@@ -20,7 +20,7 @@ const loader = tv({
 	},
 })
 
-export function TLoader({ size }: TLoaderProps) {
+export function Loader({ size }: LoaderProps) {
 	const state = useInternalState()
 
 	const classNames = state?.components?.loader?.classNames

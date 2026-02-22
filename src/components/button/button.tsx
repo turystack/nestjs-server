@@ -3,7 +3,7 @@ import { Loader2 } from 'lucide-react'
 import type { PropsWithChildren } from 'react'
 import { tv } from 'tailwind-variants'
 
-import type { TButtonProps } from './button.types'
+import type { ButtonProps } from './button.types'
 
 import { useInternalState } from '@/components/provider/provider.context'
 import { cn } from '@/support/utils'
@@ -42,7 +42,7 @@ const button = tv({
 	},
 })
 
-export function TButton(props: PropsWithChildren<TButtonProps>) {
+export function Button(props: PropsWithChildren<ButtonProps>) {
 	const {
 		form,
 		type = 'button',

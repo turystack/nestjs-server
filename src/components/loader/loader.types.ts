@@ -1,7 +1,7 @@
-export type TLoaderSlots = 'root'
+export type LoaderSlots = 'root'
 
-export type TLoaderSize = 'sm' | 'md' | 'lg'
+export type LoaderSize = 'sm' | 'md' | 'lg'
 
-export type TLoaderProps = {
-	size?: TLoaderSize
+export type LoaderProps = {
+	size?: LoaderSize
 }

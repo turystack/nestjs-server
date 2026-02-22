@@ -1,5 +1,5 @@
-import type { TButtonProps, TButtonSlots } from '@/components/button'
-import type { TLoaderProps, TLoaderSlots } from '@/components/loader'
+import type { ButtonProps, ButtonSlots } from '@/components/button'
+import type { LoaderProps, LoaderSlots } from '@/components/loader'
 import type {
 	ComponentClassNameSlots,
 	ComponentDefaultProps,
@@ -12,7 +12,7 @@ export type ComponentConfig<T extends object, S extends string> = {
 
 export type TuryStackProviderProps = {
 	components?: {
-		button?: ComponentConfig<TButtonProps, TButtonSlots>
-		loader?: ComponentConfig<TLoaderProps, TLoaderSlots>
+		button?: ComponentConfig<ButtonProps, ButtonSlots>
+		loader?: ComponentConfig<LoaderProps, LoaderSlots>
 	}
 }
