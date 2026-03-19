@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
 import { tv } from 'tailwind-variants'
 
 import type { PaginationProps } from './pagination.types'
@@ -13,8 +13,11 @@ const styles = tv({
 		root: 't:flex t:items-center t:justify-between t:gap-4',
 		rowsPerPage:
 			't:flex t:items-center t:gap-2 t:text-muted-foreground t:text-sm',
-		rowsSelect:
-			't:h-8 t:cursor-pointer t:rounded-md t:border t:border-input t:bg-background t:pr-6 t:pl-2 t:text-sm t:focus:outline-none t:focus:ring-2 t:focus:ring-ring',
+		rowsSelect: 't:relative',
+		rowsSelectNative:
+			't:h-8 t:w-full t:cursor-pointer t:appearance-none t:rounded-md t:border t:border-input t:bg-background t:pr-8 t:pl-2 t:text-sm t:focus:outline-none t:focus:ring-2 t:focus:ring-ring',
+		rowsSelectIcon:
+			't:pointer-events-none t:absolute t:inset-y-0 t:right-2 t:flex t:items-center',
 	},
 })
 
@@ -28,7 +31,7 @@ const PAGE_SIZE_OPTIONS = [
 export function Pagination(props: PaginationProps) {
 	const state = useInternalState()
 	const config = state?.components?.pagination
-	const { root, rowsPerPage, rowsSelect, actions } = styles()
+	const { root, rowsPerPage, rowsSelect, rowsSelectNative, rowsSelectIcon, actions } = styles()
 
 	if (props.mode === 'offset') {
 		const {
@@ -46,20 +49,25 @@ export function Pagination(props: PaginationProps) {
 			<div className={cn(root(), config?.classNames?.root)}>
 				<div className={cn(rowsPerPage(), config?.classNames?.rowsPerPage)}>
 					<span>Rows per page:</span>
-					<select
-						className={rowsSelect()}
-						onChange={(e) => onRowsPerPageChange(Number(e.target.value))}
-						value={rpp}
-					>
-						{PAGE_SIZE_OPTIONS.map((opt) => (
-							<option
-								key={opt}
-								value={opt}
-							>
-								{opt}
-							</option>
-						))}
-					</select>
+					<div className={rowsSelect()}>
+						<select
+							className={rowsSelectNative()}
+							onChange={(e) => onRowsPerPageChange(Number(e.target.value))}
+							value={rpp}
+						>
+							{PAGE_SIZE_OPTIONS.map((opt) => (
+								<option
+									key={opt}
+									value={opt}
+								>
+									{opt}
+								</option>
+							))}
+						</select>
+						<div className={rowsSelectIcon()}>
+							<ChevronDown className="t:size-3.5 t:text-muted-foreground" />
+						</div>
+					</div>
 					<span>
 						{(page - 1) * rpp + 1}–{Math.min(page * rpp, total)} of {total}
 					</span>
@@ -99,20 +107,25 @@ export function Pagination(props: PaginationProps) {
 		<div className={cn(root(), config?.classNames?.root)}>
 			<div className={cn(rowsPerPage(), config?.classNames?.rowsPerPage)}>
 				<span>Rows per page:</span>
-				<select
-					className={rowsSelect()}
-					onChange={(e) => onRowsPerPageChange?.(Number(e.target.value))}
-					value={rpp}
-				>
-					{PAGE_SIZE_OPTIONS.map((opt) => (
-						<option
-							key={opt}
-							value={opt}
-						>
-							{opt}
-						</option>
-					))}
-				</select>
+				<div className={rowsSelect()}>
+					<select
+						className={rowsSelectNative()}
+						onChange={(e) => onRowsPerPageChange?.(Number(e.target.value))}
+						value={rpp}
+					>
+						{PAGE_SIZE_OPTIONS.map((opt) => (
+							<option
+								key={opt}
+								value={opt}
+							>
+								{opt}
+							</option>
+						))}
+					</select>
+					<div className={rowsSelectIcon()}>
+						<ChevronDown className="t:size-3.5 t:text-muted-foreground" />
+					</div>
+				</div>
 			</div>
 			<div className={actions()}>
 				<Button

@@ -25,7 +25,7 @@ const styles = tv({
 			xs: 't:text-xs',
 		},
 		truncate: {
-			true: 't:truncate',
+			true: 't:truncate t:block',
 		},
 		variant: {
 			default: 't:text-foreground',

@@ -28,7 +28,6 @@ export const DateRangeInput = forwardRef<
 			defaultValue,
 			placeholder,
 			size,
-			block,
 			disabled,
 			loading,
 			onChange,
@@ -38,7 +37,6 @@ export const DateRangeInput = forwardRef<
 		const state = useInternalState()
 		const config = state?.components?.dateRangeInput
 
-		const resolvedBlock = block ?? config?.defaultProps?.block ?? false
 		const resolvedDisabled = disabled ?? config?.defaultProps?.disabled ?? false
 
 		const [open, setOpen] = useState(false)
@@ -75,7 +73,6 @@ export const DateRangeInput = forwardRef<
 			>
 				<PopoverTrigger asChild>
 					<Input
-						block={resolvedBlock}
 						className="t:cursor-pointer t:text-left"
 						disabled={resolvedDisabled}
 						leftSection={<CalendarIcon className="t:h-4 t:w-4" />}

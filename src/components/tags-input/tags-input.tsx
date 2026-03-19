@@ -27,7 +27,6 @@ export const TagsInput = forwardRef<HTMLInputElement, TagsInputProps>(
 			allowDuplicates,
 			placeholder,
 			size,
-			block,
 			disabled,
 			loading,
 			onChange,
@@ -132,7 +131,6 @@ export const TagsInput = forwardRef<HTMLInputElement, TagsInputProps>(
 				)}
 
 				<Input
-					block={block}
 					disabled={disabled}
 					loading={loading}
 					onChange={handleChange}

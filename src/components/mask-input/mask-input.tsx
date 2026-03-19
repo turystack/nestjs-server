@@ -18,7 +18,6 @@ export const MaskInput = forwardRef<HTMLInputElement, MaskInputProps>(
 			size,
 			leftSection,
 			rightSection,
-			block,
 			disabled,
 			loading,
 			className,
@@ -30,7 +29,6 @@ export const MaskInput = forwardRef<HTMLInputElement, MaskInputProps>(
 		const config = state?.components?.maskInput
 
 		const resolvedSize = size ?? config?.defaultProps?.size ?? 'md'
-		const resolvedBlock = block ?? config?.defaultProps?.block ?? false
 		const resolvedDisabled = disabled ?? config?.defaultProps?.disabled ?? false
 		const resolvedLoading = loading ?? config?.defaultProps?.loading ?? false
 
@@ -44,7 +42,6 @@ export const MaskInput = forwardRef<HTMLInputElement, MaskInputProps>(
 			rightSection: rightSectionClass,
 			loader,
 		} = styles({
-			block: resolvedBlock,
 			hasLeft,
 			hasRight,
 			size: resolvedSize,

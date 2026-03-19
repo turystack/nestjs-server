@@ -23,7 +23,6 @@ export type InputProps = Omit<
 	leftSection?: React.ReactNode
 	rightSection?: React.ReactNode
 	debounce?: boolean
-	block?: boolean
 	loading?: boolean
 	onChange?: (value: string | null) => void
 }

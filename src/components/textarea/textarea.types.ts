@@ -13,7 +13,6 @@ export type TextareaProps = Omit<
 	rootClassName?: string
 	leftSection?: React.ReactNode
 	rightSection?: React.ReactNode
-	block?: boolean
 	onChange?: (value: string | null) => void
 	maxLength?: number
 }

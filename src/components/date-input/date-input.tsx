@@ -25,7 +25,6 @@ export const DateInput = forwardRef<HTMLButtonElement, DateInputProps>(
 			defaultValue,
 			placeholder,
 			size,
-			block,
 			disabled,
 			loading,
 			onChange,
@@ -35,7 +34,6 @@ export const DateInput = forwardRef<HTMLButtonElement, DateInputProps>(
 		const state = useInternalState()
 		const config = state?.components?.dateInput
 
-		const resolvedBlock = block ?? config?.defaultProps?.block ?? false
 		const resolvedDisabled = disabled ?? config?.defaultProps?.disabled ?? false
 
 		const [open, setOpen] = useState(false)
@@ -68,7 +66,6 @@ export const DateInput = forwardRef<HTMLButtonElement, DateInputProps>(
 			>
 				<PopoverTrigger asChild>
 					<Input
-						block={resolvedBlock}
 						className="t:cursor-pointer t:text-left"
 						disabled={resolvedDisabled}
 						leftSection={<CalendarIcon className="t:h-4 t:w-4" />}

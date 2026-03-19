@@ -24,7 +24,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 			leftSection,
 			rightSection,
 			debounce,
-			block,
 			disabled,
 			loading,
 			onClick,
@@ -39,7 +38,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
 		const resolvedType = type ?? config?.defaultProps?.type ?? 'text'
 		const resolvedSize = size ?? config?.defaultProps?.size ?? 'md'
-		const resolvedBlock = block ?? config?.defaultProps?.block ?? false
 		const resolvedDebounce = debounce ?? config?.defaultProps?.debounce ?? false
 		const resolvedDisabled = disabled ?? config?.defaultProps?.disabled ?? false
 		const resolvedLoading = loading ?? config?.defaultProps?.loading ?? false
@@ -57,7 +55,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 			rightSection: rightSectionClass,
 			loader,
 		} = styles({
-			block: resolvedBlock,
 			hasLeft,
 			hasRight,
 			size: resolvedSize,

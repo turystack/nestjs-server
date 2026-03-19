@@ -15,12 +15,20 @@ const DEFAULT_COUNTRY_CODE = 'BR'
 const styles = tv({
 	slots: {
 		countrySelector:
-			't:flex t:h-10 t:cursor-pointer t:items-center t:gap-1 t:rounded-l-md t:border t:border-input t:border-r-0 t:bg-transparent t:px-3 t:text-sm t:transition-colors t:hover:bg-accent t:disabled:pointer-events-none t:disabled:opacity-50',
+			't:flex t:cursor-pointer t:items-center t:gap-1 t:rounded-l-md t:border t:border-input t:border-r-0 t:bg-transparent t:px-3 t:text-sm t:transition-colors t:hover:bg-accent t:disabled:pointer-events-none t:disabled:opacity-50',
 		input: '',
 		loader: '',
 		rightSection: '',
 		root: 't:relative t:flex t:w-full',
 	},
+	variants: {
+		size: {
+			sm: { countrySelector: 't:h-9' },
+			md: { countrySelector: 't:h-10' },
+			lg: { countrySelector: 't:h-11' },
+		},
+	},
+	defaultVariants: { size: 'md' },
 })
 
 export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
@@ -83,7 +91,8 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
 			)
 		}
 
-		const { root, countrySelector } = styles()
+		const resolvedSize = props.size ?? 'md'
+		const { root, countrySelector } = styles({ size: resolvedSize })
 
 		return (
 			<div className={cn(root(), config?.classNames?.root)}>
@@ -155,7 +164,6 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
 				<div className="t:flex-1">
 					<MaskInput
 						{...props}
-						block
 						className="t:rounded-l-none"
 						disabled={disabled}
 						key={currentCountry.code}

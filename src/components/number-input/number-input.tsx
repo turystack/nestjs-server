@@ -18,14 +18,7 @@ const stepperStyles = tv({
 			't:flex t:cursor-pointer t:items-center t:justify-center t:self-stretch t:px-2 t:text-muted-foreground t:transition-colors t:hover:text-foreground t:disabled:pointer-events-none t:disabled:opacity-50',
 		divider: 't:w-px t:self-stretch t:bg-border',
 		input: '',
-		root: 't:flex t:items-stretch t:overflow-hidden t:rounded-md t:border t:border-input t:bg-background',
-	},
-	variants: {
-		block: {
-			true: {
-				root: 't:w-full',
-			},
-		},
+		root: 't:flex t:w-full t:items-stretch t:overflow-hidden t:rounded-md t:border t:border-input t:bg-background',
 	},
 })
 
@@ -40,14 +33,7 @@ const rangeStyles = tv({
 		inputSection: 't:flex t:flex-col t:gap-1',
 		inputsWrapper: 't:flex t:flex-col t:gap-3',
 		trigger:
-			't:flex t:h-10 t:cursor-pointer t:items-center t:justify-between t:gap-2 t:rounded-md t:border t:border-input t:bg-background t:px-3 t:text-left t:text-sm t:ring-offset-background t:focus-visible:outline-none t:focus-visible:ring-2 t:focus-visible:ring-ring t:focus-visible:ring-offset-2 t:disabled:cursor-not-allowed t:disabled:opacity-50',
-	},
-	variants: {
-		block: {
-			true: {
-				trigger: 't:w-full',
-			},
-		},
+			't:flex t:h-10 t:w-full t:cursor-pointer t:items-center t:justify-between t:gap-2 t:rounded-md t:border t:border-input t:bg-background t:px-3 t:text-left t:text-sm t:ring-offset-background t:focus-visible:outline-none t:focus-visible:ring-2 t:focus-visible:ring-ring t:focus-visible:ring-offset-2 t:disabled:cursor-not-allowed t:disabled:opacity-50',
 	},
 })
 
@@ -105,7 +91,6 @@ function StepperInput({
 function SingleNumberInput({
 	step,
 	size,
-	block,
 	disabled,
 	placeholder,
 	value,
@@ -115,7 +100,6 @@ function SingleNumberInput({
 }: {
 	step: number
 	size: 'sm' | 'md' | 'lg'
-	block: boolean
 	disabled?: boolean
 	placeholder?: string
 	value?: number
@@ -128,7 +112,6 @@ function SingleNumberInput({
 	const current = isControlled ? (value ?? 0) : internal
 
 	const { input } = inputStyles({
-		block,
 		hasLeft: false,
 		hasRight: false,
 		size,
@@ -149,9 +132,7 @@ function SingleNumberInput({
 		root: stepRoot,
 		button,
 		divider,
-	} = stepperStyles({
-		block,
-	})
+	} = stepperStyles()
 
 	return (
 		<div className={stepRoot()}>
@@ -190,7 +171,6 @@ function SingleNumberInput({
 function RangeNumberInput({
 	step,
 	size,
-	block,
 	disabled,
 	placeholder,
 	value,
@@ -199,7 +179,6 @@ function RangeNumberInput({
 }: {
 	step: number
 	size: 'sm' | 'md' | 'lg'
-	block: boolean
 	disabled?: boolean
 	placeholder?: string
 	value?: NumberInputRangeValue
@@ -216,7 +195,6 @@ function RangeNumberInput({
 	const displayValue = isControlled ? (value ?? {}) : committed
 
 	const { input } = inputStyles({
-		block,
 		hasLeft: false,
 		hasRight: false,
 		size,
@@ -227,9 +205,7 @@ function RangeNumberInput({
 	)
 
 	const { content, footer, inputLabel, inputSection, inputsWrapper, trigger } =
-		rangeStyles({
-			block,
-		})
+		rangeStyles()
 
 	function handleOpen(nextOpen: boolean) {
 		if (nextOpen) {
@@ -325,14 +301,12 @@ function RangeNumberInput({
 }
 
 export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
-	({ step = 1, size, block, disabled, placeholder, ...props }, ref) => {
+	({ step = 1, size, disabled, placeholder, ...props }, ref) => {
 		const resolvedSize = size ?? 'md'
-		const resolvedBlock = block ?? false
 
 		if (props.mode === 'single') {
 			return (
 				<SingleNumberInput
-					block={resolvedBlock}
 					defaultValue={props.defaultValue}
 					disabled={disabled}
 					inputRef={ref}
@@ -347,7 +321,6 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
 
 		return (
 			<RangeNumberInput
-				block={resolvedBlock}
 				defaultValue={props.defaultValue}
 				disabled={disabled}
 				onChange={props.onChange}

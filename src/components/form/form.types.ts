@@ -14,6 +14,7 @@ export type FormFieldLabelInput =
 
 export type FormFieldProps = {
 	label?: FormFieldLabelInput
+	labelFloating?: boolean
 	name?: string
 	description?: React.ReactNode
 	error?: React.ReactNode

@@ -33,7 +33,6 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 			size,
 			leftSection,
 			rightSection,
-			block,
 			disabled,
 			maxLength,
 			onChange,
@@ -45,7 +44,6 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 		const config = state?.components?.textarea
 
 		const resolvedSize = size ?? config?.defaultProps?.size ?? 'md'
-		const resolvedBlock = block ?? config?.defaultProps?.block ?? false
 		const hasLeft = !!leftSection
 		const hasRight = !!rightSection
 
@@ -55,7 +53,6 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 			leftSection: leftClass,
 			rightSection: rightClass,
 		} = inputStyles({
-			block: resolvedBlock,
 			hasLeft,
 			hasRight,
 			size: resolvedSize,

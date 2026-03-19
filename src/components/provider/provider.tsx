@@ -18,7 +18,7 @@ export function Provider({
 		<TuryStackContext.Provider value={props}>
 			<ColorSchemeProvider defaultColorScheme={defaultColorScheme}>
 				<ThemeProvider defaultTheme={theme}>
-					<TooltipPrimitive.Provider delayDuration={0}>
+					<TooltipPrimitive.Provider delayDuration={400}>
 						<ToastContainer />
 						{children}
 					</TooltipPrimitive.Provider>

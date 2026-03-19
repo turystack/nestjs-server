@@ -132,7 +132,6 @@ export const DocumentInput = forwardRef<HTMLInputElement, DocumentInputProps>(
 				<div className="t:flex-1">
 					<MaskInput
 						{...rest}
-						block
 						className="t:rounded-l-none"
 						defaultValue={defaultValue?.number}
 						disabled={disabled}

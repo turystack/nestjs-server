@@ -64,6 +64,7 @@ function FieldLabel({
 function Field({
 	children,
 	label,
+	labelFloating,
 	name,
 	description,
 	error,
@@ -75,6 +76,27 @@ function Field({
 	const resolvedLabel = typeof label === 'string' ? label : label?.content
 	const labelConfig =
 		typeof label === 'object' && label !== null ? label : undefined
+
+	if (labelFloating && resolvedLabel) {
+		return (
+			<div className={cn('t:flex t:flex-col t:gap-1.5', config?.classNames?.root)}>
+				{description && <p className={descriptionClass()}>{description}</p>}
+				<div className="turystack-floating-label t:relative">
+					<FieldLabel
+						disabled={labelConfig?.disabled}
+						htmlFor={labelConfig?.htmlFor ?? name}
+						optional={labelConfig?.optional}
+						required={labelConfig?.required}
+						tooltip={labelConfig?.tooltip}
+					>
+						{resolvedLabel}
+					</FieldLabel>
+					{children}
+				</div>
+				{error && <p className={errorClass()}>{error}</p>}
+			</div>
+		)
+	}
 
 	return (
 		<div className={cn(field(), config?.classNames?.root)}>

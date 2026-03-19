@@ -73,14 +73,7 @@ const rangeStyles = tv({
 		inputSection: 't:flex t:flex-col t:gap-1',
 		inputsWrapper: 't:flex t:flex-col t:gap-3',
 		trigger:
-			't:flex t:h-10 t:cursor-pointer t:items-center t:justify-between t:gap-2 t:rounded-md t:border t:border-input t:bg-background t:px-3 t:text-left t:text-sm t:ring-offset-background t:focus-visible:outline-none t:focus-visible:ring-2 t:focus-visible:ring-ring t:focus-visible:ring-offset-2 t:disabled:cursor-not-allowed t:disabled:opacity-50',
-	},
-	variants: {
-		block: {
-			true: {
-				trigger: 't:w-full',
-			},
-		},
+			't:flex t:h-10 t:w-full t:cursor-pointer t:items-center t:justify-between t:gap-2 t:rounded-md t:border t:border-input t:bg-background t:px-3 t:text-left t:text-sm t:ring-offset-background t:focus-visible:outline-none t:focus-visible:ring-2 t:focus-visible:ring-ring t:focus-visible:ring-offset-2 t:disabled:cursor-not-allowed t:disabled:opacity-50',
 	},
 })
 
@@ -132,12 +125,10 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
 				onChange: rangeOnChange,
 				placeholder,
 				disabled,
-				block,
 			} = rest
 
 			return (
 				<RangeCurrencyInput
-					block={block}
 					currency={resolvedCurrency}
 					defaultValue={rangeDefaultValue}
 					disabled={disabled}
@@ -170,7 +161,6 @@ function RangeCurrencyInput({
 	onChange,
 	placeholder,
 	disabled,
-	block,
 }: {
 	currency: Currency
 	value?: CurrencyInputRangeValue
@@ -178,7 +168,6 @@ function RangeCurrencyInput({
 	onChange?: (v: CurrencyInputRangeValue) => void
 	placeholder?: string
 	disabled?: boolean
-	block?: boolean
 }) {
 	const state = useInternalState()
 	const translations = state?.translations?.currencyInput
@@ -193,9 +182,7 @@ function RangeCurrencyInput({
 	const displayValue = isControlled ? (value ?? {}) : committed
 
 	const { content, footer, inputLabel, inputSection, inputsWrapper, trigger } =
-		rangeStyles({
-			block,
-		})
+		rangeStyles()
 
 	function handleOpen(next: boolean) {
 		if (next) {
@@ -243,7 +230,6 @@ function RangeCurrencyInput({
 								{translations?.from ?? 'From'}
 							</span>
 							<Input
-								block
 								onChange={(val) =>
 									setDraft((d) => ({
 										...d,
@@ -257,7 +243,6 @@ function RangeCurrencyInput({
 						<div className={inputSection()}>
 							<span className={inputLabel()}>{translations?.to ?? 'To'}</span>
 							<Input
-								block
 								onChange={(val) =>
 									setDraft((d) => ({
 										...d,

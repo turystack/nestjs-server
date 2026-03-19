@@ -47,16 +47,11 @@ const styles = tv({
 		option: 't:flex t:cursor-pointer t:items-center t:gap-4',
 		rightSection:
 			't:pointer-events-none t:absolute t:inset-y-0 t:right-0 t:flex t:items-center t:gap-2 t:pr-3',
-		root: 't:relative',
+		root: 't:relative t:w-full',
 		search: '',
 		value: 't:truncate',
 	},
 	variants: {
-		block: {
-			true: {
-				root: 't:w-full',
-			},
-		},
 		hasPlaceholder: {
 			true: {
 				value: 't:text-muted-foreground',
@@ -261,7 +256,6 @@ type SelectBaseProps<T> = {
 	rightSection?: React.ReactNode
 	loading: boolean
 	disabled: boolean
-	block: boolean
 	size: 'sm' | 'md' | 'lg'
 	renderOption?: (option: T) => React.ReactNode
 	open: boolean
@@ -287,7 +281,6 @@ const SelectBase = <T,>({
 	rightSection,
 	loading,
 	disabled,
-	block,
 	size,
 	open,
 	onOpenChange,
@@ -334,25 +327,11 @@ const SelectBase = <T,>({
 		loader,
 		leftSection: leftSectionClass,
 		rightSection: rightSectionClass,
-	} = styles({
-		block,
-	})
+	} = styles({})
 
 	return (
 		<div
 			className={cn(root(), config?.classNames?.root)}
-			style={
-				block
-					? undefined
-					: {
-							minWidth: 180,
-							...(mode === 'single'
-								? {
-										width: 'fit-content',
-									}
-								: {}),
-						}
-			}
 		>
 			<Popover
 				onOpenChange={onOpenChange}
@@ -462,7 +441,6 @@ const SelectSingle = <T, I = string, O = I>({
 	rightSection,
 	loading,
 	disabled,
-	block,
 	size,
 	renderOption,
 	renderValue,
@@ -474,7 +452,6 @@ const SelectSingle = <T, I = string, O = I>({
 	const resolvedSearchable = searchable ?? true
 	const resolvedDisabled = disabled ?? false
 	const resolvedLoading = loading ?? false
-	const resolvedBlock = block ?? false
 	const resolvedSize = size ?? 'md'
 
 	const [open, setOpen] = useState(false)
@@ -546,7 +523,6 @@ const SelectSingle = <T, I = string, O = I>({
 
 	return (
 		<SelectBase
-			block={resolvedBlock}
 			disabled={resolvedDisabled}
 			emptySection={emptySection}
 			infinite={infinite}
@@ -617,7 +593,6 @@ const SelectMultiple = <T, I = string, O = I>({
 	rightSection,
 	loading,
 	disabled,
-	block,
 	size,
 	renderOption,
 	renderValue,
@@ -629,7 +604,6 @@ const SelectMultiple = <T, I = string, O = I>({
 	const resolvedSearchable = searchable ?? true
 	const resolvedDisabled = disabled ?? false
 	const resolvedLoading = loading ?? false
-	const resolvedBlock = block ?? false
 	const resolvedSize = size ?? 'md'
 
 	const [open, setOpen] = useState(false)
@@ -699,7 +673,6 @@ const SelectMultiple = <T, I = string, O = I>({
 
 	return (
 		<SelectBase
-			block={resolvedBlock}
 			disabled={resolvedDisabled}
 			emptySection={emptySection}
 			infinite={infinite}

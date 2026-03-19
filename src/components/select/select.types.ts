@@ -38,7 +38,6 @@ export type BaseSelectProps<T, O> = {
 	infinite?: SelectInfiniteProps
 	disabled?: boolean
 	loading?: boolean
-	block?: boolean
 	size?: SelectSize
 }
 
