@@ -28,8 +28,12 @@ export function ToastContainer({ theme, ...props }: ToasterProps) {
 					cancelButton:
 						't:group-[.toast]:bg-muted t:group-[.toast]:text-muted-foreground',
 					description: 't:group-[.toast]:text-muted-foreground',
+					error: 't:border-l-4 t:border-l-red-500',
+					info: 't:border-l-4 t:border-l-blue-500',
+					success: 't:border-l-4 t:border-l-green-500',
 					toast:
 						't:group t:toast t:group-[.toaster]:bg-background t:group-[.toaster]:text-foreground t:group-[.toaster]:border-border t:group-[.toaster]:shadow-lg',
+					warning: 't:border-l-4 t:border-l-yellow-500',
 				},
 			}}
 			{...props}

@@ -23,15 +23,7 @@ export const DateRangeInput = forwardRef<
 	DateRangeInputProps
 >(
 	(
-		{
-			value,
-			defaultValue,
-			placeholder,
-			size,
-			disabled,
-			loading,
-			onChange,
-		},
+		{ value, defaultValue, placeholder, size, disabled, loading, onChange },
 		_ref,
 	) => {
 		const state = useInternalState()

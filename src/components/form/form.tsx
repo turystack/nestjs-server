@@ -79,7 +79,9 @@ function Field({
 
 	if (labelFloating && resolvedLabel) {
 		return (
-			<div className={cn('t:flex t:flex-col t:gap-1.5', config?.classNames?.root)}>
+			<div
+				className={cn('t:flex t:flex-col t:gap-1.5', config?.classNames?.root)}
+			>
 				{description && <p className={descriptionClass()}>{description}</p>}
 				<div className="turystack-floating-label t:relative">
 					<FieldLabel

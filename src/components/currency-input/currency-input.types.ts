@@ -10,6 +10,8 @@ export type CurrencyInputSlots =
 
 export type Currency = 'brl' | 'usd' | 'eur'
 
+export type CurrencyVariant = Currency | 'any'
+
 export type CurrencyInputSingleValue = number | null
 export type CurrencyInputRangeValue = {
 	from?: number | null
@@ -20,7 +22,7 @@ type BaseCurrencyInputProps = Omit<
 	InputProps,
 	'value' | 'defaultValue' | 'onChange'
 > & {
-	currency?: Currency
+	variant?: CurrencyVariant
 }
 
 type SingleCurrencyInputProps = {

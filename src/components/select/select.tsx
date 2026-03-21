@@ -330,9 +330,7 @@ const SelectBase = <T,>({
 	} = styles({})
 
 	return (
-		<div
-			className={cn(root(), config?.classNames?.root)}
-		>
+		<div className={cn(root(), config?.classNames?.root)}>
 			<Popover
 				onOpenChange={onOpenChange}
 				open={open}

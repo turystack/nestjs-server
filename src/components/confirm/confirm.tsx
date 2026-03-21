@@ -10,7 +10,7 @@ const styles = tv({
 	slots: {
 		actions: 't:flex t:flex-col-reverse t:gap-2 t:sm:flex-row t:sm:justify-end',
 		content:
-			't:data-[state=closed]:fade-out-0 t:data-[state=open]:fade-in-0 t:data-[state=closed]:zoom-out-95 t:data-[state=open]:zoom-in-95 t:fixed t:top-[50%] t:left-[50%] t:z-50 t:grid t:w-full t:max-w-lg t:translate-x-[-50%] t:translate-y-[-50%] t:gap-4 t:border t:bg-background t:p-6 t:shadow-lg t:duration-200 t:data-[state=closed]:animate-out t:data-[state=open]:animate-in t:sm:rounded-lg',
+			't:data-[state=closed]:fade-out-0 t:data-[state=open]:fade-in-0 t:data-[state=closed]:zoom-out-95 t:data-[state=open]:zoom-in-95 t:fixed t:top-[50%] t:left-[50%] t:z-50 t:grid t:w-full t:max-w-lg t:translate-x-[-50%] t:translate-y-[-50%] t:gap-4 t:border t:bg-dialog t:p-6 t:shadow-lg t:duration-200 t:data-[state=closed]:animate-out t:data-[state=open]:animate-in t:sm:rounded-lg',
 		description: 't:text-muted-foreground t:text-sm',
 		overlay:
 			't:data-[state=closed]:fade-out-0 t:data-[state=open]:fade-in-0 t:fixed t:inset-0 t:z-50 t:bg-black/80 t:data-[state=closed]:animate-out t:data-[state=open]:animate-in',

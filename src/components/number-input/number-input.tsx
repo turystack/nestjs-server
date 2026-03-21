@@ -18,7 +18,7 @@ const stepperStyles = tv({
 			't:flex t:cursor-pointer t:items-center t:justify-center t:self-stretch t:px-2 t:text-muted-foreground t:transition-colors t:hover:text-foreground t:disabled:pointer-events-none t:disabled:opacity-50',
 		divider: 't:w-px t:self-stretch t:bg-border',
 		input: '',
-		root: 't:flex t:w-full t:items-stretch t:overflow-hidden t:rounded-md t:border t:border-input t:bg-background',
+		root: 't:flex t:w-full t:items-stretch t:overflow-hidden t:rounded-md t:border t:border-input t:bg-input/30',
 	},
 })
 
@@ -33,7 +33,7 @@ const rangeStyles = tv({
 		inputSection: 't:flex t:flex-col t:gap-1',
 		inputsWrapper: 't:flex t:flex-col t:gap-3',
 		trigger:
-			't:flex t:h-10 t:w-full t:cursor-pointer t:items-center t:justify-between t:gap-2 t:rounded-md t:border t:border-input t:bg-background t:px-3 t:text-left t:text-sm t:ring-offset-background t:focus-visible:outline-none t:focus-visible:ring-2 t:focus-visible:ring-ring t:focus-visible:ring-offset-2 t:disabled:cursor-not-allowed t:disabled:opacity-50',
+			't:flex t:h-10 t:w-full t:cursor-pointer t:items-center t:justify-between t:gap-2 t:rounded-md t:border t:border-input t:bg-input/30 t:px-3 t:text-left t:text-sm t:ring-offset-background t:focus-visible:outline-none t:focus-visible:ring-2 t:focus-visible:ring-ring t:focus-visible:ring-offset-2 t:disabled:cursor-not-allowed t:disabled:opacity-50',
 	},
 })
 
@@ -128,11 +128,7 @@ function SingleNumberInput({
 		onChange?.(next)
 	}
 
-	const {
-		root: stepRoot,
-		button,
-		divider,
-	} = stepperStyles()
+	const { root: stepRoot, button, divider } = stepperStyles()
 
 	return (
 		<div className={stepRoot()}>

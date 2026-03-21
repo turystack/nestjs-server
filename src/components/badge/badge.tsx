@@ -13,7 +13,7 @@ const styles = tv({
 		variant: 'default',
 	},
 	slots: {
-		root: 't:inline-flex t:cursor-pointer t:items-center t:rounded-full t:border t:px-2.5 t:py-0.5 t:font-semibold t:text-xs t:transition-colors t:focus:outline-none t:focus:ring-2 t:focus:ring-ring t:focus:ring-offset-2',
+		root: 't:relative t:inline-flex t:cursor-pointer t:items-center t:rounded-full t:border t:px-2.5 t:py-0.5 t:font-semibold t:text-xs t:transition-colors t:focus:outline-none t:focus:ring-2 t:focus:ring-ring t:focus:ring-offset-2',
 	},
 	variants: {
 		align: {
@@ -29,7 +29,7 @@ const styles = tv({
 		},
 		block: {
 			true: {
-				root: 't:flex t:w-full t:justify-center',
+				root: 't:flex t:w-full',
 			},
 		},
 		variant: {
@@ -80,7 +80,14 @@ export function Badge({
 			className={cn(root(), config?.classNames?.root)}
 			onClick={onClick}
 		>
-			{resolvedLoading ? <Loader size="sm" /> : children}
+			{resolvedLoading && (
+				<span className="t:absolute t:inset-0 t:flex t:items-center t:justify-center">
+					<Loader size="sm" />
+				</span>
+			)}
+			<span className={resolvedLoading ? 't:invisible' : undefined}>
+				{children}
+			</span>
 		</Comp>
 	)
 }

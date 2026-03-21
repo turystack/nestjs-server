@@ -38,6 +38,7 @@ import type { TooltipConfig } from '@/components/tooltip/tooltip.types'
 
 export type ProviderProps = {
 	defaultColorScheme?: ColorScheme
+	persistTheme?: boolean
 	theme?: ThemeProps
 	translations?: I18nTranslations
 	components?: {

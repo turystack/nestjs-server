@@ -1,5 +1,5 @@
 import { OTPInput as OTPInputBase, OTPInputContext } from 'input-otp'
-import { Dot } from 'lucide-react'
+import { MinusIcon } from 'lucide-react'
 import { useContext } from 'react'
 import { tv } from 'tailwind-variants'
 
@@ -14,7 +14,7 @@ const styles = tv({
 	},
 	slots: {
 		cell: 't:relative t:flex t:items-center t:justify-center t:border-input t:border-y t:border-r t:text-sm t:transition-all t:first:rounded-l-md t:first:border-l t:last:rounded-r-md',
-		root: 't:flex t:items-center t:gap-2 t:has-[:disabled]:opacity-50',
+		root: 't:flex t:items-center t:justify-center t:gap-1 t:has-[:disabled]:opacity-50',
 	},
 	variants: {
 		active: {
@@ -35,6 +35,17 @@ const styles = tv({
 		},
 	},
 })
+
+function InputOTPSeparator({ ...props }: React.ComponentProps<'div'>) {
+	return (
+		<div
+			className="t:flex t:w-4 t:shrink-0 t:items-center t:justify-center t:overflow-visible"
+			{...props}
+		>
+			<MinusIcon size={16} />
+		</div>
+	)
+}
 
 function OTPSlot({ index, size }: { index: number; size: OTPInputSize }) {
 	const inputOTPContext = useContext(OTPInputContext)
@@ -89,35 +100,33 @@ export function OTPInput({
 			onChange={handleChange}
 			value={value ?? undefined}
 		>
-			{resolvedPattern.map((length, index) => {
+			{resolvedPattern.flatMap((length, index) => {
 				const baseIndex = resolvedPattern
 					.slice(0, index)
 					.reduce((a, b) => a + b, 0)
 
-				return (
+				const elements: React.ReactNode[] = [
 					<div
 						className="t:flex t:items-center"
 						key={`group-${baseIndex}`}
 					>
-						<div className="t:flex t:items-center">
-							{Array.from({
-								length,
-							}).map((_, i) => (
-								<OTPSlot
-									index={baseIndex + i}
-									key={`slot-${baseIndex + i}`}
-									size={resolvedSize}
-								/>
-							))}
-						</div>
+						{Array.from({
+							length,
+						}).map((_, i) => (
+							<OTPSlot
+								index={baseIndex + i}
+								key={`slot-${baseIndex + i}`}
+								size={resolvedSize}
+							/>
+						))}
+					</div>,
+				]
 
-						{index < resolvedPattern.length - 1 && (
-							<div>
-								<Dot />
-							</div>
-						)}
-					</div>
-				)
+				if (index < resolvedPattern.length - 1) {
+					elements.push(<InputOTPSeparator key={`sep-${baseIndex}`} />)
+				}
+
+				return elements
 			})}
 		</OTPInputBase>
 	)

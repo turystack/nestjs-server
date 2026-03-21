@@ -11,13 +11,17 @@ import { ToastContainer } from '@/components/toast'
 export function Provider({
 	children,
 	defaultColorScheme = 'system',
+	persistTheme,
 	theme,
 	...props
 }: PropsWithChildren<ProviderProps>) {
 	return (
 		<TuryStackContext.Provider value={props}>
 			<ColorSchemeProvider defaultColorScheme={defaultColorScheme}>
-				<ThemeProvider defaultTheme={theme}>
+				<ThemeProvider
+					defaultTheme={theme}
+					persistTheme={persistTheme}
+				>
 					<TooltipPrimitive.Provider delayDuration={400}>
 						<ToastContainer />
 						{children}

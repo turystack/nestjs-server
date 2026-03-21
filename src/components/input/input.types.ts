@@ -1,7 +1,5 @@
 import type { ComponentConfig } from '@/support/types'
 
-export type InputType = 'text' | 'password'
-
 export type InputSlots =
 	| 'root'
 	| 'input'
@@ -15,7 +13,8 @@ export type InputProps = Omit<
 	React.InputHTMLAttributes<HTMLInputElement>,
 	'onChange' | 'size' | 'value' | 'defaultValue' | 'type'
 > & {
-	type?: InputType
+	/** @internal Use only for internal composition (e.g. PasswordInput). Not intended as a public API. */
+	type?: 'text' | 'password'
 	value?: string | null
 	defaultValue?: string | null
 	size?: InputSize

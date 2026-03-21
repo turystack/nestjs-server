@@ -191,7 +191,7 @@ function RadioItem({
 		>
 			<span className={radioItemIndicator()}>
 				<DropdownMenuPrimitive.ItemIndicator>
-					<Circle className="t:h-2 t:w-2 t:fill-current" />
+					<Circle className="t:h-1.5 t:w-1.5 t:fill-current" />
 				</DropdownMenuPrimitive.ItemIndicator>
 			</span>
 			{children}

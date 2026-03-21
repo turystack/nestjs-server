@@ -29,12 +29,12 @@ const styles = tv({
 		closeInline:
 			't:cursor-pointer t:rounded-sm t:opacity-70 t:ring-offset-background t:transition-opacity t:hover:opacity-100 t:focus:outline-none t:focus:ring-2 t:focus:ring-ring t:focus:ring-offset-2 t:disabled:pointer-events-none t:data-[state=open]:bg-secondary',
 		content:
-			't:fixed t:z-50 t:flex t:flex-col t:overflow-hidden t:bg-background t:shadow-lg t:transition t:ease-in-out t:data-[state=closed]:animate-out t:data-[state=open]:animate-in t:data-[state=closed]:duration-300 t:data-[state=open]:duration-500',
+			't:fixed t:z-50 t:flex t:flex-col t:overflow-hidden t:bg-sheet t:shadow-lg t:transition t:ease-in-out t:data-[state=closed]:animate-out t:data-[state=open]:animate-in t:data-[state=closed]:duration-300 t:data-[state=open]:duration-500',
 		description: 't:text-muted-foreground t:text-sm',
 		footer:
-			't:sticky t:bottom-0 t:z-10 t:flex t:flex-col-reverse t:bg-background t:p-6 t:sm:flex-row t:sm:justify-end t:sm:space-x-2',
+			't:sticky t:bottom-0 t:z-10 t:flex t:flex-col-reverse t:bg-sheet t:p-6 t:sm:flex-row t:sm:justify-end t:sm:space-x-2',
 		header:
-			't:sticky t:top-0 t:z-10 t:flex t:shrink-0 t:items-center t:justify-between t:bg-background t:p-6',
+			't:sticky t:top-0 t:z-10 t:flex t:shrink-0 t:items-center t:justify-between t:bg-sheet t:p-6',
 		overlay:
 			't:data-[state=closed]:fade-out-0 t:data-[state=open]:fade-in-0 t:fixed t:inset-0 t:z-50 t:bg-black/80 t:data-[state=closed]:animate-out t:data-[state=open]:animate-in',
 		title: 't:font-semibold t:text-foreground t:text-lg',

@@ -20,15 +20,7 @@ const styles = tv({
 
 export const DateInput = forwardRef<HTMLButtonElement, DateInputProps>(
 	(
-		{
-			value,
-			defaultValue,
-			placeholder,
-			size,
-			disabled,
-			loading,
-			onChange,
-		},
+		{ value, defaultValue, placeholder, size, disabled, loading, onChange },
 		_ref,
 	) => {
 		const state = useInternalState()

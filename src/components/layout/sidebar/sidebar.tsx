@@ -16,7 +16,7 @@ import { useSidebar } from '../context'
 
 const sidebarStyles = tv({
 	slots: {
-		root: 't:flex t:shrink-0 t:flex-col t:overflow-hidden t:bg-background t:transition-all t:duration-200',
+		root: 't:flex t:shrink-0 t:flex-col t:overflow-hidden t:bg-sidebar t:transition-all t:duration-200',
 	},
 	variants: {
 		bordered: {

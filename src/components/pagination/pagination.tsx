@@ -14,10 +14,10 @@ const styles = tv({
 		rowsPerPage:
 			't:flex t:items-center t:gap-2 t:text-muted-foreground t:text-sm',
 		rowsSelect: 't:relative',
-		rowsSelectNative:
-			't:h-8 t:w-full t:cursor-pointer t:appearance-none t:rounded-md t:border t:border-input t:bg-background t:pr-8 t:pl-2 t:text-sm t:focus:outline-none t:focus:ring-2 t:focus:ring-ring',
 		rowsSelectIcon:
 			't:pointer-events-none t:absolute t:inset-y-0 t:right-2 t:flex t:items-center',
+		rowsSelectNative:
+			't:h-8 t:w-full t:cursor-pointer t:appearance-none t:rounded-md t:border t:border-input t:bg-background t:pr-8 t:pl-2 t:text-sm t:focus:outline-none t:focus:ring-2 t:focus:ring-ring',
 	},
 })
 
@@ -31,7 +31,14 @@ const PAGE_SIZE_OPTIONS = [
 export function Pagination(props: PaginationProps) {
 	const state = useInternalState()
 	const config = state?.components?.pagination
-	const { root, rowsPerPage, rowsSelect, rowsSelectNative, rowsSelectIcon, actions } = styles()
+	const {
+		root,
+		rowsPerPage,
+		rowsSelect,
+		rowsSelectNative,
+		rowsSelectIcon,
+		actions,
+	} = styles()
 
 	if (props.mode === 'offset') {
 		const {

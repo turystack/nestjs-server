@@ -148,7 +148,6 @@ export const TagsInput = forwardRef<HTMLInputElement, TagsInputProps>(
 						}
 					}}
 					size={size}
-					type="text"
 					value={inputValue}
 				/>
 			</div>

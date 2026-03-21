@@ -8,6 +8,12 @@ import type {
 
 import { Input } from '@/components/input'
 
+const BARS = Array.from({
+	length: 5,
+}).map((_, i) => ({
+	id: i,
+}))
+
 const STRENGTH_RULES = [
 	(v: string) => v.length >= 8,
 	(v: string) => /[A-Z]/.test(v),
@@ -22,44 +28,67 @@ function getStrength(value: string): {
 } {
 	const score = STRENGTH_RULES.filter((rule) => rule(value)).length
 
-	if (score <= 1) return { score, level: 'very-weak' }
-	if (score === 2) return { score, level: 'weak' }
-	if (score === 3) return { score, level: 'medium' }
-	if (score === 4) return { score, level: 'strong' }
-	return { score, level: 'very-strong' }
+	if (score <= 1) {
+		return {
+			level: 'very-weak',
+			score,
+		}
+	}
+	if (score === 2) {
+		return {
+			level: 'weak',
+			score,
+		}
+	}
+	if (score === 3) {
+		return {
+			level: 'medium',
+			score,
+		}
+	}
+	if (score === 4) {
+		return {
+			level: 'strong',
+			score,
+		}
+	}
+	return {
+		level: 'very-strong',
+		score,
+	}
 }
 
 const styles = tv({
 	slots: {
 		bar: 't:h-1.5 t:flex-1 t:rounded-full t:transition-colors',
 		barWrapper: 't:flex t:gap-1 t:pt-2',
-		label: 't:text-xs t:pt-1',
+		label: 't:pt-1 t:text-xs',
 		root: 't:w-full',
 	},
 })
 
 const barColors: Record<PasswordStrengthLevel, string> = {
-	'very-weak': 't:bg-destructive',
-	weak: 't:bg-orange-500',
 	medium: 't:bg-yellow-500',
 	strong: 't:bg-green-500',
 	'very-strong': 't:bg-green-700',
+	'very-weak': 't:bg-destructive',
+	weak: 't:bg-orange-500',
 }
 
 const labelColors: Record<PasswordStrengthLevel, string> = {
-	'very-weak': 't:text-destructive',
-	weak: 't:text-orange-500',
 	medium: 't:text-yellow-500',
 	strong: 't:text-green-500',
 	'very-strong': 't:text-green-700',
+	'very-weak': 't:text-destructive',
+	weak: 't:text-orange-500',
 }
 
 const LABELS: Record<PasswordStrengthLevel, string> = {
-	'very-weak': 'Very weak',
-	weak: 'Weak',
 	medium: 'Medium',
 	strong: 'Strong',
 	'very-strong': 'Very strong',
+	'very-weak': 'Very weak',
+	weak: 'Weak',
 }
 
 export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
@@ -75,9 +104,8 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 
 		const { root, barWrapper, bar, label } = styles()
 
-		const strength = showStrength && currentValue
-			? getStrength(currentValue)
-			: null
+		const strength =
+			showStrength && currentValue ? getStrength(currentValue) : null
 
 		return (
 			<div className={root()}>
@@ -91,10 +119,10 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 				{showStrength && strength && (
 					<>
 						<div className={barWrapper()}>
-							{Array.from({ length: 5 }).map((_, i) => (
+							{BARS.map(({ id }) => (
 								<div
-									className={`${bar()} ${i < strength.score ? barColors[strength.level] : 't:bg-muted'}`}
-									key={i}
+									className={`${bar()} ${id < strength.score ? barColors[strength.level] : 't:bg-muted'}`}
+									key={id}
 								/>
 							))}
 						</div>

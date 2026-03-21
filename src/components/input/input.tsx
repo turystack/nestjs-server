@@ -1,5 +1,4 @@
-import { Eye, EyeOff } from 'lucide-react'
-import { forwardRef, useState } from 'react'
+import { forwardRef } from 'react'
 
 import { useDebounceFn } from '@/hooks'
 
@@ -36,17 +35,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 		const state = useInternalState()
 		const config = state?.components?.input
 
-		const resolvedType = type ?? config?.defaultProps?.type ?? 'text'
 		const resolvedSize = size ?? config?.defaultProps?.size ?? 'md'
 		const resolvedDebounce = debounce ?? config?.defaultProps?.debounce ?? false
 		const resolvedDisabled = disabled ?? config?.defaultProps?.disabled ?? false
 		const resolvedLoading = loading ?? config?.defaultProps?.loading ?? false
 
-		const [showPassword, setShowPassword] = useState(false)
-		const isPassword = resolvedType === 'password'
-		const inputType = isPassword && showPassword ? 'text' : resolvedType
 		const hasLeft = !!leftSection
-		const hasRight = !!rightSection || resolvedLoading || isPassword
+		const hasRight = !!rightSection || resolvedLoading
 
 		const {
 			root,
@@ -66,10 +61,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 		}
 
 		const handleDebouncedChange = useDebounceFn(handleChange)
-
-		const togglePasswordVisibility = () => {
-			setShowPassword((prev) => !prev)
-		}
 
 		return (
 			<div
@@ -96,11 +87,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 					readOnly={readOnly}
 					ref={ref}
 					style={style}
-					type={inputType}
+					type={type ?? 'text'}
 					value={!resolvedDebounce ? (value ?? undefined) : undefined}
 				/>
 
-				{(hasRight || resolvedLoading) && (
+				{hasRight && (
 					<div
 						className={cn(
 							rightSectionClass(),
@@ -114,21 +105,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 						)}
 
 						{rightSection}
-
-						{isPassword && (
-							<button
-								aria-label={showPassword ? 'Hide password' : 'Show password'}
-								className="t:pointer-events-auto t:flex t:items-center t:justify-center t:text-muted-foreground t:transition-colors hover:t:text-foreground"
-								onClick={togglePasswordVisibility}
-								type="button"
-							>
-								{showPassword ? (
-									<EyeOff className="t:size-4" />
-								) : (
-									<Eye className="t:size-4" />
-								)}
-							</button>
-						)}
 					</div>
 				)}
 			</div>

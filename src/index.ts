@@ -45,12 +45,9 @@ export * from './components/tabs'
 export * from './components/tags-input'
 export * from './components/textarea'
 export type {
-	ThemeBaseColor,
 	ThemeFont,
-	ThemePrimaryColor,
 	ThemeProps,
 	ThemeRadius,
-	ThemeStyle,
 } from './components/theme'
 export {
 	applyTheme,

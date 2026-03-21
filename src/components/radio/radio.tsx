@@ -8,10 +8,10 @@ import type { RadioGroupProps, RadioItem, RadioProps } from './radio.types'
 const styles = tv({
 	slots: {
 		description: 't:text-muted-foreground t:text-sm',
-		indicator: 't:flex t:items-center t:justify-center',
+		indicator: 't:flex t:cursor-pointer t:items-center t:justify-center',
 		label:
 			't:cursor-pointer t:font-medium t:text-sm t:leading-none t:peer-disabled:cursor-not-allowed t:peer-disabled:opacity-70',
-		root: 't:aspect-square t:h-4 t:w-4 t:rounded-full t:border t:border-primary t:text-primary t:ring-offset-background t:focus:outline-none t:focus-visible:ring-2 t:focus-visible:ring-ring t:focus-visible:ring-offset-2 t:disabled:cursor-not-allowed t:disabled:opacity-50',
+		root: 't:aspect-square t:h-4 t:w-4 t:rounded-full t:border t:border-input t:text-foreground t:ring-offset-background t:focus:outline-none t:focus-visible:ring-2 t:focus-visible:ring-ring t:focus-visible:ring-offset-2 t:disabled:cursor-not-allowed t:disabled:opacity-50',
 		wrapper: 't:flex t:items-center t:gap-2',
 	},
 	variants: {

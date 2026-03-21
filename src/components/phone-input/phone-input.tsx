@@ -13,6 +13,9 @@ import { cn } from '@/support/utils'
 const DEFAULT_COUNTRY_CODE = 'BR'
 
 const styles = tv({
+	defaultVariants: {
+		size: 'md',
+	},
 	slots: {
 		countrySelector:
 			't:flex t:cursor-pointer t:items-center t:gap-1 t:rounded-l-md t:border t:border-input t:border-r-0 t:bg-transparent t:px-3 t:text-sm t:transition-colors t:hover:bg-accent t:disabled:pointer-events-none t:disabled:opacity-50',
@@ -23,12 +26,17 @@ const styles = tv({
 	},
 	variants: {
 		size: {
-			sm: { countrySelector: 't:h-9' },
-			md: { countrySelector: 't:h-10' },
-			lg: { countrySelector: 't:h-11' },
+			lg: {
+				countrySelector: 't:h-11',
+			},
+			md: {
+				countrySelector: 't:h-10',
+			},
+			sm: {
+				countrySelector: 't:h-9',
+			},
 		},
 	},
-	defaultVariants: { size: 'md' },
 })
 
 export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
@@ -92,7 +100,9 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
 		}
 
 		const resolvedSize = props.size ?? 'md'
-		const { root, countrySelector } = styles({ size: resolvedSize })
+		const { root, countrySelector } = styles({
+			size: resolvedSize,
+		})
 
 		return (
 			<div className={cn(root(), config?.classNames?.root)}>

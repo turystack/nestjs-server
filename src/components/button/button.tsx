@@ -1,12 +1,11 @@
 import { Slot } from '@radix-ui/react-slot'
 import { Loader2 } from 'lucide-react'
 import { forwardRef, type PropsWithChildren } from 'react'
-import { tv } from 'tailwind-variants'
 
 import type { ButtonProps } from './button.types'
 
 import { useInternalState } from '@/components/provider/provider.context'
-import { cn } from '@/support/utils'
+import { cn, tv } from '@/support/utils'
 
 const contentStyles = tv({
 	base: 't:inline-flex t:items-center t:gap-2',
@@ -37,14 +36,14 @@ export const styles = tv({
 		},
 		variant: {
 			dashed:
-				't:border-2 t:border-input t:border-dashed t:bg-background t:hover:bg-accent t:hover:text-accent-foreground',
+				't:border-2 t:border-input t:border-dashed t:bg-input/30 t:hover:bg-accent t:hover:text-accent-foreground',
 			default: 't:bg-primary t:text-primary-foreground t:hover:bg-primary/90',
 			destructive:
 				't:bg-destructive t:text-destructive-foreground t:hover:bg-destructive/90',
 			ghost: 't:hover:bg-accent t:hover:text-accent-foreground',
-			link: 't:text-primary t:underline-offset-4 t:hover:underline',
+			link: 't:h-auto t:p-0 t:text-muted-foreground t:underline t:underline-offset-4',
 			outline:
-				't:border t:border-input t:bg-background t:hover:bg-accent t:hover:text-accent-foreground',
+				't:border t:border-input t:bg-input/30 t:hover:bg-accent t:hover:text-accent-foreground',
 			secondary:
 				't:bg-secondary t:text-secondary-foreground t:hover:bg-secondary/80',
 		},

@@ -3,7 +3,7 @@ import type { ComponentConfig } from '@/support/types'
 
 export type DocumentInputSlots = 'root' | 'input' | 'typeSelector' | 'loader'
 
-export type DocumentType = 'cpf' | 'cnpj' | 'cpf_cnpj'
+export type DocumentType = 'cpf' | 'cnpj' | 'any'
 
 export type DocumentValue = {
 	type: DocumentType

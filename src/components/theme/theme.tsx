@@ -13,16 +13,18 @@ import { ALL_THEME_CSS_VARS, applyTheme } from './theme.utils'
 
 type ThemeProviderProps = {
 	defaultTheme?: ThemeProps
+	persistTheme?: boolean
 }
 
 export function ThemeProvider({
 	defaultTheme = {},
+	persistTheme = false,
 	children,
 }: PropsWithChildren<ThemeProviderProps>) {
-	const [theme, setTheme] = useState<ThemeProps>({
+	const [theme, setTheme] = useState<ThemeProps>(() => ({
+		...(persistTheme ? (getStoredTheme() ?? {}) : {}),
 		...defaultTheme,
-		...getStoredTheme(),
-	})
+	}))
 
 	const appliedVarsRef = useRef<string[]>([])
 
@@ -44,16 +46,23 @@ export function ThemeProvider({
 		appliedVarsRef.current = Object.keys(vars)
 	}, [])
 
-	const changeTheme = useCallback((next: Partial<ThemeProps>) => {
-		setTheme((prev) => {
-			const merged = {
-				...prev,
-				...next,
-			}
-			setStoredTheme(merged)
-			return merged
-		})
-	}, [])
+	const changeTheme = useCallback(
+		(next: Partial<ThemeProps>) => {
+			setTheme((prev) => {
+				const merged = {
+					...prev,
+					...next,
+				}
+				if (persistTheme) {
+					setStoredTheme(merged)
+				}
+				return merged
+			})
+		},
+		[
+			persistTheme,
+		],
+	)
 
 	useLayoutEffect(() => {
 		applyVars(theme)

@@ -3,7 +3,7 @@ import { ChevronDown } from 'lucide-react'
 import { forwardRef, useState } from 'react'
 import { tv } from 'tailwind-variants'
 
-import type { DocumentInputProps, DocumentType } from './document-input.types'
+import type { DocumentInputProps } from './document-input.types'
 
 import { MaskInput } from '@/components/mask-input'
 import { useInternalState } from '@/components/provider/provider.context'
@@ -12,27 +12,12 @@ import { cn } from '@/support/utils'
 const CPF_MASK = '000.000.000-00'
 const CNPJ_MASK = '00.000.000/0000-00'
 
-function getMask(type: DocumentType): string | string[] {
-	if (type === 'cpf') {
-		return CPF_MASK
-	}
-	if (type === 'cnpj') {
-		return CNPJ_MASK
-	}
-	return [
-		CPF_MASK,
-		CNPJ_MASK,
-	]
+function getMask(type: 'cpf' | 'cnpj'): string {
+	return type === 'cpf' ? CPF_MASK : CNPJ_MASK
 }
 
-function getLabel(type: DocumentType): string {
-	if (type === 'cpf') {
-		return 'CPF'
-	}
-	if (type === 'cnpj') {
-		return 'CNPJ'
-	}
-	return 'CPF / CNPJ'
+function getLabel(type: 'cpf' | 'cnpj'): string {
+	return type === 'cpf' ? 'CPF' : 'CNPJ'
 }
 
 const styles = tv({
@@ -51,13 +36,14 @@ export const DocumentInput = forwardRef<HTMLInputElement, DocumentInputProps>(
 		const state = useInternalState()
 		const config = state?.components?.documentInput
 
-		const [activeType, setActiveType] = useState<DocumentType>(
-			value?.type ??
-				defaultValue?.type ??
-				(variant === 'cpf_cnpj' ? 'cpf' : variant),
+		const [activeType, setActiveType] = useState<'cpf' | 'cnpj'>(
+			(value?.type !== 'any' ? value?.type : undefined) ??
+				(defaultValue?.type !== 'any' ? defaultValue?.type : undefined) ??
+				(variant === 'any' ? 'cpf' : variant),
 		)
 
-		const resolvedType = variant === 'cpf_cnpj' ? activeType : variant
+		const resolvedType: 'cpf' | 'cnpj' =
+			variant === 'any' ? activeType : variant
 		const mask = getMask(resolvedType)
 
 		function handleChange(raw: string | null) {
@@ -71,7 +57,7 @@ export const DocumentInput = forwardRef<HTMLInputElement, DocumentInputProps>(
 			})
 		}
 
-		if (variant !== 'cpf_cnpj') {
+		if (variant !== 'any') {
 			return (
 				<MaskInput
 					{...rest}

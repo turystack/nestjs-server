@@ -8,7 +8,7 @@ const styles = tv({
 		visible: false,
 	},
 	slots: {
-		loader: 't:size-8 t:animate-spin t:text-primary',
+		loader: 't:size-8 t:animate-spin t:text-muted-foreground',
 		root: 't:absolute t:inset-0 t:z-50 t:items-center t:justify-center t:bg-background/80',
 	},
 	variants: {

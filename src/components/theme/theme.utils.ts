@@ -1,40 +1,19 @@
-import {
-	BASE_COLOR_VARS,
-	FONT_MAP,
-	PRIMARY_COLOR_VARS,
-	RADIUS_MAP,
-	STYLE_PRESETS,
-} from './theme.presets'
+import { FONT_MAP, RADIUS_MAP } from './theme.presets'
 import type { ThemeProps } from './theme.types'
 
-export function resolveTheme(theme: ThemeProps): Omit<ThemeProps, 'style'> {
-	const preset = theme.style ? STYLE_PRESETS[theme.style] : {}
-
+export function resolveTheme(theme: ThemeProps): ThemeProps {
 	return {
-		baseColor: theme.baseColor ?? preset.baseColor,
-		font: theme.font ?? preset.font,
-		primaryColor: theme.primaryColor ?? preset.primaryColor,
-		radius: theme.radius ?? preset.radius,
+		font: theme.font,
+		radius: theme.radius,
 	}
 }
 
 export function applyTheme(
 	theme: ThemeProps,
-	isDark: boolean,
+	_isDark: boolean,
 ): Record<string, string> {
 	const resolved = resolveTheme(theme)
 	const vars: Record<string, string> = {}
-	const mode = isDark ? 'dark' : 'light'
-
-	if (resolved.baseColor) {
-		const baseVars = BASE_COLOR_VARS[resolved.baseColor][mode]
-		Object.assign(vars, baseVars)
-	}
-
-	if (resolved.primaryColor) {
-		const primaryVars = PRIMARY_COLOR_VARS[resolved.primaryColor][mode]
-		Object.assign(vars, primaryVars)
-	}
 
 	if (resolved.font) {
 		vars['--font-sans'] = FONT_MAP[resolved.font]
@@ -58,23 +37,32 @@ export function applyThemeToDocument(theme: ThemeProps): void {
 }
 
 export const ALL_THEME_CSS_VARS = [
+	'--t-accent',
+	'--t-accent-foreground',
 	'--t-background',
-	'--t-foreground',
+	'--t-border',
 	'--t-card',
 	'--t-card-foreground',
+	'--t-dialog',
+	'--t-dialog-foreground',
+	'--t-foreground',
+	'--t-input',
+	'--t-muted',
+	'--t-muted-foreground',
 	'--t-popover',
 	'--t-popover-foreground',
 	'--t-secondary',
 	'--t-secondary-foreground',
-	'--t-muted',
-	'--t-muted-foreground',
-	'--t-accent',
-	'--t-accent-foreground',
-	'--t-border',
-	'--t-input',
-	'--t-primary',
-	'--t-primary-foreground',
-	'--t-ring',
-	'--font-sans',
+	'--t-sheet',
+	'--t-sheet-foreground',
+	'--t-sidebar',
+	'--t-sidebar-accent',
+	'--t-sidebar-accent-foreground',
+	'--t-sidebar-border',
+	'--t-sidebar-foreground',
+	'--t-sidebar-primary',
+	'--t-sidebar-primary-foreground',
+	'--t-sidebar-ring',
 	'--t-radius',
+	'--font-sans',
 ] as const

@@ -18,7 +18,7 @@ const styles = tv({
 		indicator: 't:grid t:place-content-center t:text-current',
 		label:
 			't:cursor-pointer t:font-medium t:text-sm t:leading-none t:peer-disabled:cursor-not-allowed t:peer-disabled:opacity-70',
-		root: 't:peer t:grid t:shrink-0 t:cursor-pointer t:place-content-center t:rounded-sm t:border t:border-primary t:ring-offset-background t:focus-visible:outline-none t:focus-visible:ring-2 t:focus-visible:ring-ring t:focus-visible:ring-offset-2 t:disabled:cursor-not-allowed t:disabled:opacity-50 t:data-[state=checked]:bg-primary t:data-[state=checked]:text-primary-foreground',
+		root: 't:peer t:grid t:shrink-0 t:cursor-pointer t:place-content-center t:rounded-sm t:border t:border-input t:ring-offset-background t:focus-visible:outline-none t:focus-visible:ring-2 t:focus-visible:ring-ring t:focus-visible:ring-offset-2 t:disabled:cursor-not-allowed t:disabled:opacity-50 t:data-[state=checked]:bg-primary t:data-[state=checked]:text-primary-foreground',
 		wrapper: 't:flex t:items-center t:gap-2',
 	},
 	variants: {
