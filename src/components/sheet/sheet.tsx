@@ -97,7 +97,6 @@ function Root({
 						className={cn(close(), config?.classNames?.close)}
 					>
 						<X className={closeIcon()} />
-						<span className="t:sr-only">Close</span>
 					</SheetPrimitive.Close>
 				</SheetPrimitive.Content>
 			</SheetPrimitive.Portal>
@@ -123,7 +122,6 @@ function Header({
 			{closable && (
 				<SheetPrimitive.Close className={closeInline()}>
 					<X className={closeIcon()} />
-					<span className="t:sr-only">Close</span>
 				</SheetPrimitive.Close>
 			)}
 		</div>

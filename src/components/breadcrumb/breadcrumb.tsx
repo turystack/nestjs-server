@@ -136,8 +136,7 @@ function Ellipsis(_props: BreadcrumbEllipsisProps) {
 			<MoreHorizontal
 				className={cn(ellipsisIcon(), config?.classNames?.icon)}
 			/>
-			<span className="t:sr-only">More</span>
-		</span>
+			</span>
 	)
 }
 

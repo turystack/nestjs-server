@@ -16,6 +16,8 @@ export type FlexGap = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
 export type FlexWrap = 'wrap' | 'nowrap' | 'wrap-reverse'
 
+export type FlexMinHeight = 'sm' | 'md' | 'lg' | 'screen'
+
 export type FlexProps = {
 	direction?: FlexDirection
 	justify?: FlexJustify
@@ -23,4 +25,5 @@ export type FlexProps = {
 	gap?: FlexGap
 	wrap?: FlexWrap
 	inline?: boolean
+	minHeight?: FlexMinHeight
 }

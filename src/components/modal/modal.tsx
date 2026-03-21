@@ -124,7 +124,6 @@ function HeaderRoot({
 					className={cn(close(), modalConfig?.classNames?.close)}
 				>
 					<X className="t:h-4 t:w-4" />
-					<span className="t:sr-only">Close</span>
 				</DialogPrimitive.Close>
 			)}
 		</div>

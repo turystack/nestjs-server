@@ -10,6 +10,7 @@ import type {
 
 import { Button } from '@/components/button/button'
 import { styles as inputStyles } from '@/components/input/input.shared'
+import { useInternalState } from '@/components/provider/provider.context'
 import { cn } from '@/support/utils'
 
 const stepperStyles = tv({
@@ -181,6 +182,9 @@ function RangeNumberInput({
 	defaultValue?: NumberInputRangeValue
 	onChange?: (value: NumberInputRangeValue) => void
 }) {
+	const state = useInternalState()
+	const translations = state?.translations?.numberInput
+
 	const [open, setOpen] = useState(false)
 	const [committed, setCommitted] = useState<NumberInputRangeValue>(
 		defaultValue ?? {},
@@ -220,8 +224,8 @@ function RangeNumberInput({
 
 	const triggerLabel =
 		displayValue.from != null || displayValue.to != null
-			? `${displayValue.from ?? '–'} até ${displayValue.to ?? '–'}`
-			: (placeholder ?? 'Selecionar intervalo')
+			? `${displayValue.from ?? '–'} – ${displayValue.to ?? '–'}`
+			: (placeholder ?? translations?.selectRange)
 
 	return (
 		<PopoverPrimitive.Root
@@ -245,7 +249,7 @@ function RangeNumberInput({
 				>
 					<div className={inputsWrapper()}>
 						<div className={inputSection()}>
-							<span className={inputLabel()}>De</span>
+							<span className={inputLabel()}>{translations?.from}</span>
 							<StepperInput
 								disabled={disabled}
 								inputClass={inputClass}
@@ -260,7 +264,7 @@ function RangeNumberInput({
 							/>
 						</div>
 						<div className={inputSection()}>
-							<span className={inputLabel()}>Até</span>
+							<span className={inputLabel()}>{translations?.to}</span>
 							<StepperInput
 								disabled={disabled}
 								inputClass={inputClass}
@@ -280,13 +284,13 @@ function RangeNumberInput({
 								size="sm"
 								variant="outline"
 							>
-								Cancelar
+								{translations?.cancel}
 							</Button>
 							<Button
 								onClick={handleConfirm}
 								size="sm"
 							>
-								Confirmar
+								{translations?.confirm}
 							</Button>
 						</div>
 					</div>

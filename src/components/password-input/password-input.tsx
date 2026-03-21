@@ -7,6 +7,7 @@ import type {
 } from './password-input.types'
 
 import { Input } from '@/components/input'
+import { useInternalState } from '@/components/provider/provider.context'
 
 const BARS = Array.from({
 	length: 5,
@@ -93,6 +94,9 @@ const LABELS: Record<PasswordStrengthLevel, string> = {
 
 export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 	({ showStrength = true, value, onChange, ...props }, ref) => {
+		const state = useInternalState()
+		const translations = state?.translations?.passwordInput
+
 		const [internalValue, setInternalValue] = useState('')
 		const currentValue =
 			typeof value === 'string' ? value : (internalValue ?? '')
@@ -127,7 +131,13 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 							))}
 						</div>
 						<p className={`${label()} ${labelColors[strength.level]}`}>
-							{LABELS[strength.level]}
+							{
+						strength.level === 'very-weak' ? (translations?.veryWeak ?? LABELS['very-weak'])
+						: strength.level === 'weak' ? (translations?.weak ?? LABELS.weak)
+						: strength.level === 'medium' ? (translations?.medium ?? LABELS.medium)
+						: strength.level === 'strong' ? (translations?.strong ?? LABELS.strong)
+						: (translations?.veryStrong ?? LABELS['very-strong'])
+					}
 						</p>
 					</>
 				)}

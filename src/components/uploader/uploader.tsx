@@ -5,6 +5,7 @@ import { tv } from 'tailwind-variants'
 import type { UploaderHandlerResponse, UploaderProps } from './uploader.types'
 
 import { Button } from '@/components/button'
+import { useInternalState } from '@/components/provider/provider.context'
 
 const styles = tv({
 	slots: {
@@ -47,6 +48,9 @@ export function Uploader({
 	handler,
 	onUpload,
 }: UploaderProps) {
+	const state = useInternalState()
+	const translations = state?.translations?.uploader
+
 	const [files, setFiles] = useState<FileState[]>([])
 	const [dragging, setDragging] = useState(false)
 	const inputRef = useRef<HTMLInputElement>(null)
@@ -207,13 +211,14 @@ export function Uploader({
 				onDrop={handleDrop}
 			>
 				<Upload className={icon()} />
-				<p className="t:font-medium t:text-sm">Click or drag files to upload</p>
+				<p className="t:font-medium t:text-sm">{translations?.clickOrDrag}</p>
 				{(maxFileSize || accept) && (
 					<p className="t:text-muted-foreground t:text-xs">
-						{accept && `Accepted: ${accept}`}
+						{accept && (translations?.accepted ?? accept)}
 						{accept && maxFileSize && ' · '}
 						{maxFileSize &&
-							`Max size: ${(maxFileSize / 1024 / 1024).toFixed(1)} MB`}
+							(translations?.maxSize ??
+								`${(maxFileSize / 1024 / 1024).toFixed(1)} MB`)}
 					</p>
 				)}
 				<input
@@ -248,7 +253,7 @@ export function Uploader({
 								)}
 								{f.status === 'error' && (
 									<span className="t:text-destructive t:text-xs">
-										Error uploading
+										{translations?.errorUploading}
 									</span>
 								)}
 							</div>

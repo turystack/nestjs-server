@@ -88,6 +88,7 @@ export function Table<T extends object>({
 
 	const state = useInternalState()
 	const config = state?.components?.table
+	const translations = state?.translations?.table
 
 	useEffect(() => {
 		if (isControlled && selectedKeysProp) {
@@ -209,7 +210,7 @@ export function Table<T extends object>({
 									className={cn(empty(), config?.classNames?.empty)}
 									colSpan={visibleColumns.length + (hasSelection ? 1 : 0)}
 								>
-									{emptySection ?? 'No data'}
+									{emptySection ?? translations?.noData}
 								</td>
 							</tr>
 						) : (

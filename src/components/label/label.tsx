@@ -5,6 +5,7 @@ import { tv } from 'tailwind-variants'
 
 import type { LabelProps } from './label.types'
 
+import { useInternalState } from '@/components/provider/provider.context'
 import { Tooltip } from '@/components/tooltip'
 
 const styles = tv({
@@ -32,6 +33,9 @@ export function Label({
 	tooltip,
 	children,
 }: PropsWithChildren<LabelProps>) {
+	const state = useInternalState()
+	const translations = state?.translations?.label
+
 	const {
 		root,
 		required: requiredClass,
@@ -48,9 +52,9 @@ export function Label({
 		>
 			{children}
 
-			{required && <span className={requiredClass()}> *</span>}
+			{required && <span className={requiredClass()}>{translations?.required ?? ' *'}</span>}
 
-			{optional && <span className={optionalClass()}> (optional)</span>}
+			{optional && <span className={optionalClass()}>{translations?.optional ?? ' (optional)'}</span>}
 
 			{tooltip && (
 				<Tooltip content={tooltip}>

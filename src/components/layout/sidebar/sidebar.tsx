@@ -192,11 +192,13 @@ export function SidebarFooter({
 
 export function SidebarTrigger() {
 	const { collapsed, toggle } = useSidebar()
+	const state = useInternalState()
+	const translations = state?.translations?.sidebar
 	const { root } = sidebarTriggerStyles()
 	const Icon = collapsed ? PanelLeftOpen : PanelLeftClose
 	return (
 		<button
-			aria-label="Toggle sidebar"
+			aria-label={translations?.toggle}
 			className={root()}
 			onClick={toggle}
 			type="button"

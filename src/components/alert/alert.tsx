@@ -109,6 +109,7 @@ function Root({
 }: PropsWithChildren<AlertProps>) {
 	const state = useInternalState()
 	const config = state?.components?.alert?.default
+	const translations = state?.translations?.alert
 
 	const resolvedVariant = variant ?? config?.defaultProps?.variant ?? 'default'
 
@@ -153,7 +154,7 @@ function Root({
 
 				{closable && (
 					<button
-						aria-label="Close"
+						aria-label={translations?.close}
 						className={cn(close(), config?.classNames?.close)}
 						onClick={handleClose}
 						type="button"

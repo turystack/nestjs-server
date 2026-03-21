@@ -5,6 +5,7 @@ import { tv } from 'tailwind-variants'
 import type { ConfirmProps } from './confirm.types'
 
 import { Button } from '@/components/button'
+import { useInternalState } from '@/components/provider/provider.context'
 
 const styles = tv({
 	slots: {
@@ -22,14 +23,20 @@ export function Confirm({
 	open,
 	title,
 	description,
-	confirmText = 'Confirm',
-	cancelText = 'Cancel',
+	confirmText,
+	cancelText,
 	confirmProps,
 	cancelProps,
 	onConfirm,
 	onCancel,
 	onClose,
 }: ConfirmProps) {
+	const state = useInternalState()
+	const translations = state?.translations?.confirm
+
+	const resolvedConfirmText = confirmText ?? translations?.confirm
+	const resolvedCancelText = cancelText ?? translations?.cancel
+
 	const [confirmLoading, setConfirmLoading] = useState(false)
 	const [cancelLoading, setCancelLoading] = useState(false)
 
@@ -89,7 +96,7 @@ export function Confirm({
 								onClick={handleCancel}
 								variant={cancelProps?.variant ?? 'outline'}
 							>
-								{cancelText}
+								{resolvedCancelText}
 							</Button>
 						</AlertDialogPrimitive.Cancel>
 						<AlertDialogPrimitive.Action asChild>
@@ -98,7 +105,7 @@ export function Confirm({
 								loading={confirmLoading}
 								onClick={handleConfirm}
 							>
-								{confirmText}
+								{resolvedConfirmText}
 							</Button>
 						</AlertDialogPrimitive.Action>
 					</div>

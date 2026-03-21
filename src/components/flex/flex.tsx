@@ -45,6 +45,12 @@ const styles = tv({
 			evenly: 't:justify-evenly',
 			start: 't:justify-start',
 		},
+		minHeight: {
+			lg: 't:min-h-[800px]',
+			md: 't:min-h-[600px]',
+			screen: 't:min-h-screen',
+			sm: 't:min-h-[400px]',
+		},
 		wrap: {
 			nowrap: 't:flex-nowrap',
 			wrap: 't:flex-wrap',
@@ -60,6 +66,7 @@ export function Flex({
 	gap,
 	wrap,
 	inline,
+	minHeight,
 	children,
 }: PropsWithChildren<FlexProps>) {
 	return (
@@ -70,6 +77,7 @@ export function Flex({
 				gap,
 				inline,
 				justify,
+				minHeight,
 				wrap,
 			})}
 		>

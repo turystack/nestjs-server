@@ -297,7 +297,7 @@ function RangeCurrencyInput({
 	const triggerLabel =
 		displayValue.from != null || displayValue.to != null
 			? `${formatCurrency(displayValue.from ?? null, currency) ?? '–'} – ${formatCurrency(displayValue.to ?? null, currency) ?? '–'}`
-			: (placeholder ?? translations?.selectRange ?? 'Select range')
+			: (placeholder ?? translations?.selectRange)
 
 	return (
 		<PopoverPrimitive.Root

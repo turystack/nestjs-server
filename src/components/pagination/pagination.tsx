@@ -31,6 +31,7 @@ const PAGE_SIZE_OPTIONS = [
 export function Pagination(props: PaginationProps) {
 	const state = useInternalState()
 	const config = state?.components?.pagination
+	const translations = state?.translations?.pagination
 	const {
 		root,
 		rowsPerPage,
@@ -55,7 +56,7 @@ export function Pagination(props: PaginationProps) {
 		return (
 			<div className={cn(root(), config?.classNames?.root)}>
 				<div className={cn(rowsPerPage(), config?.classNames?.rowsPerPage)}>
-					<span>Rows per page:</span>
+					<span>{translations?.rowsPerPage}</span>
 					<div className={rowsSelect()}>
 						<select
 							className={rowsSelectNative()}
@@ -76,7 +77,7 @@ export function Pagination(props: PaginationProps) {
 						</div>
 					</div>
 					<span>
-						{(page - 1) * rpp + 1}–{Math.min(page * rpp, total)} of {total}
+						{(page - 1) * rpp + 1}–{Math.min(page * rpp, total)} {translations?.of} {total}
 					</span>
 				</div>
 				<div className={actions()}>
@@ -113,7 +114,7 @@ export function Pagination(props: PaginationProps) {
 	return (
 		<div className={cn(root(), config?.classNames?.root)}>
 			<div className={cn(rowsPerPage(), config?.classNames?.rowsPerPage)}>
-				<span>Rows per page:</span>
+				<span>{translations?.rowsPerPage}</span>
 				<div className={rowsSelect()}>
 					<select
 						className={rowsSelectNative()}

@@ -25,6 +25,7 @@ export const DateInput = forwardRef<HTMLButtonElement, DateInputProps>(
 	) => {
 		const state = useInternalState()
 		const config = state?.components?.dateInput
+		const translations = state?.translations?.dateInput
 
 		const resolvedDisabled = disabled ?? config?.defaultProps?.disabled ?? false
 
@@ -46,7 +47,7 @@ export const DateInput = forwardRef<HTMLButtonElement, DateInputProps>(
 			if (!date) {
 				return placeholder ?? ''
 			}
-			return format(date, 'dd/MM/yyyy')
+			return format(date, translations?.format ?? 'dd/MM/yyyy')
 		}
 
 		const { content, calendar } = styles()

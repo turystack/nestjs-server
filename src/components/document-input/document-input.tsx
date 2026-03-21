@@ -35,6 +35,7 @@ export const DocumentInput = forwardRef<HTMLInputElement, DocumentInputProps>(
 	) => {
 		const state = useInternalState()
 		const config = state?.components?.documentInput
+		const translations = state?.translations?.documentInput
 
 		const [activeType, setActiveType] = useState<'cpf' | 'cnpj'>(
 			(value?.type !== 'any' ? value?.type : undefined) ??
@@ -67,7 +68,7 @@ export const DocumentInput = forwardRef<HTMLInputElement, DocumentInputProps>(
 					onChange={handleChange}
 					placeholder={
 						placeholder ??
-						(variant === 'cpf' ? '000.000.000-00' : '00.000.000/0000-00')
+						(variant === 'cpf' ? translations?.cpfPlaceholder : translations?.cnpjPlaceholder)
 					}
 					ref={ref}
 					value={value?.number}
@@ -86,7 +87,7 @@ export const DocumentInput = forwardRef<HTMLInputElement, DocumentInputProps>(
 							disabled={disabled}
 							type="button"
 						>
-							<span>{getLabel(activeType)}</span>
+							<span>{activeType === 'cpf' ? (translations?.cpf ?? getLabel(activeType)) : (translations?.cnpj ?? getLabel(activeType))}</span>
 							<ChevronDown className="t:size-4 t:text-muted-foreground" />
 						</button>
 					</DropdownMenuPrimitive.Trigger>
@@ -108,7 +109,7 @@ export const DocumentInput = forwardRef<HTMLInputElement, DocumentInputProps>(
 									key={type}
 									onClick={() => setActiveType(type)}
 								>
-									{getLabel(type)}
+									{type === 'cpf' ? (translations?.cpf ?? getLabel(type)) : (translations?.cnpj ?? getLabel(type))}
 								</DropdownMenuPrimitive.Item>
 							))}
 						</DropdownMenuPrimitive.Content>
@@ -124,7 +125,7 @@ export const DocumentInput = forwardRef<HTMLInputElement, DocumentInputProps>(
 						key={resolvedType}
 						mask={mask}
 						onChange={handleChange}
-						placeholder={placeholder ?? 'CPF ou CNPJ'}
+						placeholder={placeholder ?? translations?.cpfOrCnpjPlaceholder}
 						ref={ref}
 						value={value?.number}
 					/>

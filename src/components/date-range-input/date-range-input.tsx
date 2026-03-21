@@ -28,6 +28,7 @@ export const DateRangeInput = forwardRef<
 	) => {
 		const state = useInternalState()
 		const config = state?.components?.dateRangeInput
+		const translations = state?.translations?.dateRangeInput
 
 		const resolvedDisabled = disabled ?? config?.defaultProps?.disabled ?? false
 
@@ -49,11 +50,14 @@ export const DateRangeInput = forwardRef<
 				return placeholder ?? ''
 			}
 
+			const dateFormat = translations?.format ?? 'dd/MM/yyyy'
+			const separator = translations?.separator ?? '~'
+
 			if (!range.to) {
-				return format(range.from, 'dd/MM/yyyy')
+				return format(range.from, dateFormat)
 			}
 
-			return `${format(range.from, 'dd/MM/yyyy')} ~ ${format(range.to, 'dd/MM/yyyy')}`
+			return `${format(range.from, dateFormat)} ${separator} ${format(range.to, dateFormat)}`
 		}
 
 		const { content, calendar } = styles()
