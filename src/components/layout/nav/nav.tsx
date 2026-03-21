@@ -228,7 +228,7 @@ function NavDivider({ collapsed }: { collapsed: boolean }) {
 export function LayoutNav({ items }: NavProps) {
 	const { collapsed } = useSidebar()
 	return (
-		<nav className="t:flex t:flex-col t:gap-1 t:p-2">
+		<nav className="t:flex t:w-full t:flex-col t:gap-1 t:p-2">
 			{items
 				.map((entry) => {
 					if (entry.type === 'divider') {
