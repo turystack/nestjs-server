@@ -1,6 +1,5 @@
 import { PanelLeftClose, PanelLeftOpen } from 'lucide-react'
 import type { PropsWithChildren } from 'react'
-import React from 'react'
 import { tv } from 'tailwind-variants'
 
 import type {
@@ -121,6 +120,7 @@ function SidebarRoot({
 	const { root } = sidebarStyles({
 		bordered,
 	})
+
 	return (
 		<aside
 			className={cn(
@@ -141,30 +141,12 @@ export function SidebarHeader({
 	bordered,
 	size,
 }: PropsWithChildren<SidebarHeaderProps>) {
-	const { collapsed } = useSidebar()
 	const state = useInternalState()
 	const config = state?.components?.layout?.sidebar?.header
 	const { root } = sidebarHeaderStyles({
 		bordered,
 		size,
 	})
-
-	if (collapsed) {
-		const trigger = React.Children.toArray(children).find(
-			(child) =>
-				React.isValidElement(child) &&
-				(
-					child.type as {
-						displayName?: string
-					}
-				).displayName === 'Sidebar.Trigger',
-		)
-		return (
-			<div className={cn(root(), 't:justify-center', config?.classNames?.root)}>
-				{trigger}
-			</div>
-		)
-	}
 
 	return <div className={cn(root(), config?.classNames?.root)}>{children}</div>
 }
@@ -196,6 +178,7 @@ export function SidebarTrigger() {
 	const translations = state?.translations?.sidebar
 	const { root } = sidebarTriggerStyles()
 	const Icon = collapsed ? PanelLeftOpen : PanelLeftClose
+
 	return (
 		<button
 			aria-label={translations?.toggle}

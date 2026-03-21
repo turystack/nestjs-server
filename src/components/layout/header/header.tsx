@@ -9,6 +9,7 @@ import { cn } from '@/support/utils'
 
 function flattenChildren(children: ReactNode): ReactNode[] {
 	const result: ReactNode[] = []
+
 	React.Children.forEach(children, (child) => {
 		if (React.isValidElement(child) && child.type === React.Fragment) {
 			result.push(

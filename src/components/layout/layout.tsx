@@ -16,7 +16,7 @@ import { cn } from '@/support/utils'
 
 const layoutStyles = tv({
 	slots: {
-		root: 't:flex t:h-full t:w-full t:overflow-hidden t:bg-background t:text-foreground',
+		root: 't:flex t:h-screen t:w-full t:overflow-hidden t:bg-background t:text-foreground',
 	},
 })
 

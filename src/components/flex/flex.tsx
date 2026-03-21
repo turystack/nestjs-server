@@ -4,7 +4,7 @@ import { tv } from 'tailwind-variants'
 import type { FlexProps } from './flex.types'
 
 const styles = tv({
-	base: 't:flex',
+	base: 't:flex t:w-full',
 	defaultVariants: {
 		align: 'start',
 		direction: 'row',

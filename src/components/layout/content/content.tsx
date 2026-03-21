@@ -17,7 +17,7 @@ const contentStyles = tv({
 				inner: 't:mx-auto t:w-full t:max-w-6xl',
 			},
 			md: {
-				inner: 't:mx-auto t:w-full t:max-w-4xl',
+				inner: 't:mx-auto t:h-full t:w-full t:max-w-4xl',
 			},
 			sm: {
 				inner: 't:mx-auto t:w-full t:max-w-2xl',

@@ -16,5 +16,6 @@ export function LayoutMain({ children }: PropsWithChildren<LayoutMainProps>) {
 	const state = useInternalState()
 	const config = state?.components?.layout?.main
 	const { root } = mainStyles()
+
 	return <div className={cn(root(), config?.classNames?.root)}>{children}</div>
 }
