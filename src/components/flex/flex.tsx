@@ -4,7 +4,7 @@ import { tv } from 'tailwind-variants'
 import type { FlexProps } from './flex.types'
 
 const styles = tv({
-	base: 't:flex t:h-full t:w-full',
+	base: 't:flex t:h-full',
 	defaultVariants: {
 		align: 'start',
 		direction: 'row',
@@ -19,6 +19,9 @@ const styles = tv({
 			end: 't:items-end',
 			start: 't:items-start',
 			stretch: 't:items-stretch',
+		},
+		block: {
+			true: 't:w-full',
 		},
 		direction: {
 			col: 't:flex-col',
@@ -67,12 +70,14 @@ export function Flex({
 	wrap,
 	inline,
 	minHeight,
+	block,
 	children,
 }: PropsWithChildren<FlexProps>) {
 	return (
 		<div
 			className={styles({
 				align,
+				block,
 				direction,
 				gap,
 				inline,

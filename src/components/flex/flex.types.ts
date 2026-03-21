@@ -26,4 +26,5 @@ export type FlexProps = {
 	wrap?: FlexWrap
 	inline?: boolean
 	minHeight?: FlexMinHeight
+	block?: boolean
 }
