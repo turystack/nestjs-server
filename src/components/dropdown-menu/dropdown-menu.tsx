@@ -24,7 +24,7 @@ const styles = tv({
 		checkboxItemIndicator:
 			't:absolute t:left-2 t:flex t:h-3.5 t:w-3.5 t:items-center t:justify-center',
 		content:
-			't:data-[state=closed]:fade-out-0 t:data-[state=open]:fade-in-0 t:data-[state=closed]:zoom-out-95 t:data-[state=open]:zoom-in-95 t:data-[side=bottom]:slide-in-from-top-2 t:data-[side=left]:slide-in-from-right-2 t:data-[side=right]:slide-in-from-left-2 t:data-[side=top]:slide-in-from-bottom-2 t:z-50 t:min-w-[8rem] t:overflow-hidden t:rounded-md t:border t:bg-popover t:p-1 t:text-popover-foreground t:shadow-md t:data-[state=closed]:animate-out t:data-[state=open]:animate-in',
+			't:data-[state=closed]:fade-out-0 t:data-[state=open]:fade-in-0 t:data-[state=closed]:zoom-out-95 t:data-[state=open]:zoom-in-95 t:data-[side=bottom]:slide-in-from-top-2 t:data-[side=left]:slide-in-from-right-2 t:data-[side=right]:slide-in-from-left-2 t:data-[side=top]:slide-in-from-bottom-2 t:z-50 t:w-full t:min-w-[8rem] t:overflow-hidden t:rounded-md t:border t:bg-popover t:p-1 t:text-popover-foreground t:shadow-md t:data-[state=closed]:animate-out t:data-[state=open]:animate-in',
 		item: 't:relative t:flex t:cursor-pointer t:select-none t:items-center t:gap-2 t:rounded-sm t:px-2 t:py-1.5 t:text-sm t:outline-none t:transition-colors t:focus:bg-accent t:focus:text-accent-foreground t:data-[disabled]:pointer-events-none t:data-[disabled]:opacity-50 t:[&_svg]:pointer-events-none t:[&_svg]:size-4 t:[&_svg]:shrink-0',
 		itemIcon: '',
 		label: 't:px-2 t:py-1.5 t:font-semibold t:text-sm',
@@ -77,13 +77,17 @@ function Trigger({
 	asChild?: boolean
 }>) {
 	return (
-		<DropdownMenuPrimitive.Trigger asChild={asChild}>
+		<DropdownMenuPrimitive.Trigger
+			asChild={asChild}
+			className="cursor-pointer"
+		>
 			{children}
 		</DropdownMenuPrimitive.Trigger>
 	)
 }
 
 function Content({
+	width,
 	side,
 	align,
 	sideOffset = 4,
@@ -100,6 +104,9 @@ function Content({
 				className={cn(content(), config?.classNames?.root)}
 				side={side}
 				sideOffset={sideOffset}
+				style={{
+					width,
+				}}
 			>
 				{children}
 			</DropdownMenuPrimitive.Content>

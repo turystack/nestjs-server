@@ -18,6 +18,7 @@ export type DropdownMenuTriggerProps = {
 export type DropdownMenuContentSlots = 'root'
 
 export type DropdownMenuContentProps = {
+	width?: React.CSSProperties['width']
 	side?: DropdownMenuSide
 	align?: DropdownMenuAlign
 	sideOffset?: number
