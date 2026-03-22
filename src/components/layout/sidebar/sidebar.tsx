@@ -7,7 +7,6 @@ import type {
 	SidebarFooterProps,
 	SidebarHeaderProps,
 } from './sidebar.types'
-
 import {
 	Sidebar,
 	SidebarContent as SidebarContentPrimitive,
@@ -37,9 +36,15 @@ const sidebarHeaderStyles = tv({
 			},
 		},
 		size: {
-			lg: { root: 't:h-16' },
-			md: { root: 't:h-14' },
-			sm: { root: 't:h-10' },
+			lg: {
+				root: 't:h-16',
+			},
+			md: {
+				root: 't:h-14',
+			},
+			sm: {
+				root: 't:h-10',
+			},
 		},
 	},
 })
@@ -58,9 +63,15 @@ const sidebarFooterStyles = tv({
 			},
 		},
 		size: {
-			lg: { root: 't:h-16' },
-			md: { root: 't:h-14' },
-			sm: { root: 't:h-10' },
+			lg: {
+				root: 't:h-16',
+			},
+			md: {
+				root: 't:h-14',
+			},
+			sm: {
+				root: 't:h-10',
+			},
 		},
 	},
 })
@@ -87,7 +98,10 @@ export function LayoutSidebarHeader({
 	bordered,
 	size,
 }: PropsWithChildren<SidebarHeaderProps>) {
-	const { root } = sidebarHeaderStyles({ bordered, size })
+	const { root } = sidebarHeaderStyles({
+		bordered,
+		size,
+	})
 
 	return (
 		<SidebarHeaderPrimitive className={root()}>
@@ -107,7 +121,10 @@ export function LayoutSidebarFooter({
 	bordered,
 	size,
 }: PropsWithChildren<SidebarFooterProps>) {
-	const { root } = sidebarFooterStyles({ bordered, size })
+	const { root } = sidebarFooterStyles({
+		bordered,
+		size,
+	})
 
 	return (
 		<SidebarFooterPrimitive className={root()}>

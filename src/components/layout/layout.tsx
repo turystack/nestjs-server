@@ -31,7 +31,9 @@ function LayoutRoot({
 	return (
 		<LayoutContext.Provider value={{ withSidebar }}>
 			{withSidebar ? (
-				<SidebarProvider>{children}</SidebarProvider>
+				<SidebarProvider className={cn(root(), config?.classNames?.root)}>
+					{children}
+				</SidebarProvider>
 			) : (
 				<div className={cn(root(), config?.classNames?.root)}>{children}</div>
 			)}
