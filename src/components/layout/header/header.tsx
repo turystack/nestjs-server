@@ -36,7 +36,7 @@ const headerStyles = tv({
 		center: 't:flex t:shrink-0 t:justify-center t:px-4',
 		left: 't:flex t:min-w-0 t:flex-1 t:justify-start',
 		right: 't:flex t:min-w-0 t:flex-1 t:justify-end',
-		root: 't:flex t:shrink-0 t:items-center t:px-4',
+		root: 't:flex t:shrink-0 t:items-center t:px-2',
 	},
 	variants: {
 		bordered: {
