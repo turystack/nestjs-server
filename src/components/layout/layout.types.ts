@@ -14,7 +14,9 @@ import type { ComponentConfig } from '@/support/types'
 export type LayoutSlots = 'root'
 
 // Props
-export type LayoutProps = {}
+export type LayoutProps = {
+	withSidebar?: boolean
+}
 
 // Config
 export type LayoutConfig = {

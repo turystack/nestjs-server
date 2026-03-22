@@ -1,15 +1,14 @@
 import type { PropsWithChildren } from 'react'
-import { useCallback, useState } from 'react'
 import { tv } from 'tailwind-variants'
 
 import { LayoutContent } from './content/content'
-import { SidebarContext } from './context'
 import { LayoutFooter } from './footer/footer'
 import { LayoutHeader } from './header/header'
+import { LayoutContext } from './layout.context'
 import type { LayoutProps } from './layout.types'
 import { LayoutMain } from './main/main'
-import { LayoutNav } from './nav/nav'
 import { LayoutSidebar } from './sidebar/sidebar'
+import { SidebarProvider } from './sidebar/sidebar-primitives'
 
 import { useInternalState } from '@/components/provider/provider.context'
 import { cn } from '@/support/utils'
@@ -20,26 +19,23 @@ const layoutStyles = tv({
 	},
 })
 
-function LayoutRoot({ children }: PropsWithChildren<LayoutProps>) {
+function LayoutRoot({
+	withSidebar = false,
+	children,
+}: PropsWithChildren<LayoutProps>) {
 	const state = useInternalState()
 	const config = state?.components?.layout?.default
-
-	const [collapsed, setCollapsed] = useState(false)
-
-	const toggle = useCallback(() => setCollapsed((p) => !p), [])
 
 	const { root } = layoutStyles()
 
 	return (
-		<SidebarContext.Provider
-			value={{
-				collapsed,
-				setCollapsed,
-				toggle,
-			}}
-		>
-			<div className={cn(root(), config?.classNames?.root)}>{children}</div>
-		</SidebarContext.Provider>
+		<LayoutContext.Provider value={{ withSidebar }}>
+			{withSidebar ? (
+				<SidebarProvider>{children}</SidebarProvider>
+			) : (
+				<div className={cn(root(), config?.classNames?.root)}>{children}</div>
+			)}
+		</LayoutContext.Provider>
 	)
 }
 
@@ -48,6 +44,5 @@ export const Layout = Object.assign(LayoutRoot, {
 	Footer: LayoutFooter,
 	Header: LayoutHeader,
 	Main: LayoutMain,
-	Nav: LayoutNav,
 	Sidebar: LayoutSidebar,
 })

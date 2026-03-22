@@ -17,7 +17,6 @@ import type { I18nTranslations } from '@/components/i18n/i18n.types'
 import type { InputConfig } from '@/components/input'
 import type { HeaderConfig } from '@/components/layout/header/header.types'
 import type { LayoutConfig } from '@/components/layout/layout.types'
-import type { SidebarConfig } from '@/components/layout/sidebar/sidebar.types'
 import type { LoaderConfig } from '@/components/loader'
 import type { MaskInputConfig } from '@/components/mask-input/mask-input.types'
 import type { ModalConfig } from '@/components/modal'
@@ -74,7 +73,6 @@ export type ProviderProps = {
 		textarea?: TextareaConfig
 		tooltip?: TooltipConfig
 		layout?: LayoutConfig & {
-			sidebar?: SidebarConfig
 			header?: HeaderConfig
 		}
 	}

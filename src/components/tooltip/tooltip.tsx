@@ -9,8 +9,10 @@ import { cn } from '@/support/utils'
 
 const styles = tv({
 	slots: {
+		arrow:
+			't:z-50 t:size-2.5 t:translate-y-[calc(-50%_-_2px)] t:rotate-45 t:rounded-[2px] t:bg-foreground t:fill-foreground',
 		content:
-			't:fade-in-0 t:zoom-in-95 data-[state=closed]:t:fade-out-0 data-[state=closed]:t:zoom-out-95 data-[side=bottom]:t:slide-in-from-top-2 data-[side=left]:t:slide-in-from-right-2 data-[side=right]:t:slide-in-from-left-2 data-[side=top]:t:slide-in-from-bottom-2 t:z-50 t:animate-in t:overflow-hidden t:rounded-md t:border t:bg-popover t:px-3 t:py-1.5 t:text-popover-foreground t:text-sm t:shadow-md data-[state=closed]:t:animate-out',
+			't:fade-in-0 t:zoom-in-95 data-[state=closed]:t:fade-out-0 data-[state=closed]:t:zoom-out-95 data-[side=bottom]:t:slide-in-from-top-2 data-[side=left]:t:slide-in-from-right-2 data-[side=right]:t:slide-in-from-left-2 data-[side=top]:t:slide-in-from-bottom-2 t:z-50 t:w-fit t:origin-(--radix-tooltip-content-transform-origin) t:animate-in t:text-balance t:rounded-md t:bg-foreground t:px-3 t:py-1.5 t:text-background t:text-xs data-[state=closed]:t:animate-out',
 		root: '',
 	},
 })
@@ -24,7 +26,7 @@ export function Tooltip({
 }: PropsWithChildren<TooltipProps>) {
 	const state = useInternalState()
 	const config = state?.components?.tooltip
-	const { content: contentClass } = styles()
+	const { content: contentClass, arrow: arrowClass } = styles()
 
 	return (
 		<TooltipPrimitive.Root delayDuration={delayDuration}>
@@ -36,6 +38,7 @@ export function Tooltip({
 					sideOffset={sideOffset}
 				>
 					{content}
+					<TooltipPrimitive.Arrow className={arrowClass()} />
 				</TooltipPrimitive.Content>
 			</TooltipPrimitive.Portal>
 		</TooltipPrimitive.Root>
