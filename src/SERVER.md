@@ -5,7 +5,7 @@ HTTP server factory, request decorators, and Zod validation transforms.
 ## Server factory
 
 ```ts
-import { Server } from 'aw-backend/server'
+import { Server } from '@turystack/nestjs-server'
 import { AppModule } from './app.module'
 
 Server.create(AppModule, {
@@ -13,8 +13,7 @@ Server.create(AppModule, {
   title: 'My API',
   description: 'My API description',
   docs: {
-    pageTitle: 'My API',
-    title: 'My API',
+    provider: 'scalar',
     favicon: 'https://example.com/favicon.ico',
   },
 })
@@ -47,8 +46,7 @@ Server.create(AppModule, {
 
 | Property | Type | Default | Description |
 |---|---|---|---|
-| `pageTitle` | `string` | — | Browser tab title |
-| `title` | `string` | — | Reference page title |
+| `provider` | `'scalar'` | — | Reference UI provider |
 | `favicon` | `string` | — | Favicon URL |
 | `theme` | `string` | `'moon'` | UI theme |
 | `customCss` | `string` | built-in | Custom CSS overrides |
@@ -60,7 +58,7 @@ Server.create(AppModule, {
 Class decorator wrapping NestJS `@Controller` with Swagger tag and optional schema registration.
 
 ```ts
-import { Controller } from 'aw-backend/server'
+import { Controller } from '@turystack/nestjs-server'
 
 @Controller({
   prefix: 'users',
@@ -77,7 +75,7 @@ class UsersController {}
 Method decorator combining HTTP method, Swagger docs, and validation in one.
 
 ```ts
-import { Route } from 'aw-backend/server'
+import { Route } from '@turystack/nestjs-server'
 
 @Route({
   method: 'POST',
@@ -113,7 +111,7 @@ async activateUser() {}
 Parameter decorator that parses and validates the request using Zod schemas.
 
 ```ts
-import { Request, createRequestSchema, type RequestInput } from 'aw-backend/server'
+import { Request, createRequestSchema, type RequestInput } from '@turystack/nestjs-server'
 
 const schema = createRequestSchema({
   params: z.object({ id: z.string().uuid() }),

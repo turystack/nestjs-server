@@ -7,8 +7,6 @@ export type DocsReferenceOptions = {
 	/** Favicon URL. */
 	favicon?: string
 	/** Browser tab title. */
-	pageTitle: string
-	/** UI theme. Defaults to `'moon'`. */
 	theme?:
 		| 'default'
 		| 'alternate'
@@ -24,8 +22,6 @@ export type DocsReferenceOptions = {
 		| 'mars'
 		| 'laserwave'
 		| 'none'
-	/** Title displayed on the reference page. */
-	title: string
 }
 
 /**
@@ -37,7 +33,7 @@ export type DocsReferenceOptions = {
  *   port: 3200,
  *   title: 'My API',
  *   description: 'My API description',
- *   docs: { provider: 'scalar', pageTitle: 'My API', title: 'My API' },
+ *   docs: { provider: 'scalar', favicon: 'https://example.com/favicon.ico' },
  * })
  * ```
  */

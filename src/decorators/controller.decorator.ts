@@ -24,7 +24,7 @@ type ControllerOptions = NestControllerOptions & {
  *
  * @example
  * ```ts
- * import { Controller } from 'aw-backend/server'
+ * import { Controller } from '@turystack/nestjs-server'
  *
  * @Controller({ prefix: 'users', tag: 'Users' })
  * class UsersController {}

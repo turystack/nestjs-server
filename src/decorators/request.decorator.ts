@@ -85,7 +85,7 @@ export function createRequestSchema<T extends RequestSchema>(schema: T) {
  *
  * @example
  * ```ts
- * import { Request, createRequestSchema, type RequestInput } from 'aw-backend/server'
+ * import { Request, createRequestSchema, type RequestInput } from '@turystack/nestjs-server'
  *
  * const schema = createRequestSchema({
  *   params: z.object({ id: z.string().uuid() }),

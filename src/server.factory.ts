@@ -13,9 +13,10 @@ import { ZodValidationTransform } from '@/transforms/index.js'
 const DEFAULT_SCALAR_CSS = `
   .open-api-client-button { display: none !important; }
   .agent-button-container { display: none !important; }
+	.scalar-mcp-layer-link { display: none !important; }
+  a[href="https://www.scalar.com"] { display: none !important; }
   label[data-v-4f7e7d03] { display: none !important; }
   button[data-v-9cc2ab84].bg-sidebar-b-search { display: none !important; }
-  a[href="https://www.scalar.com"] { display: none !important; }
   div[data-v-0b1e2255].badge { display: none !important; }
 `
 
@@ -30,7 +31,7 @@ type Module = new (...args: unknown[]) => unknown
  *
  * @example
  * ```ts
- * import { Server } from 'aw-backend/server'
+ * import { Server } from '@turystack/nestjs-server'
  * import { AppModule } from './app.module'
  *
  * Server.create(AppModule, {
@@ -113,10 +114,10 @@ export const Server = {
 					customCss: docs.customCss ?? DEFAULT_SCALAR_CSS,
 					documentDownloadType: 'none',
 					favicon: docs.favicon,
-					pageTitle: docs.pageTitle,
+					pageTitle: options.title,
 					showDeveloperTools: 'never',
 					theme: docs.theme ?? 'moon',
-					title: docs.title,
+					title: options.title,
 					url: `/${globalPrefix}-json`,
 				}),
 			)

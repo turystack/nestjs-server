@@ -449,7 +449,7 @@ function getHttpStatusCode(responses?: RouteResponses): number {
  *
  * @example
  * ```ts
- * import { Route } from 'aw-backend/server'
+ * import { Route } from '@turystack/nestjs-server'
  *
  * @Route({
  *   method: 'POST',
