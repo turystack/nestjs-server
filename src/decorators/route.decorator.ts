@@ -18,11 +18,11 @@ import {
   ApiResponse,
   getSchemaPath,
 } from '@nestjs/swagger'
-import type { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface'
+import type { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface.js'
 import { createZodDto } from 'nestjs-zod'
 import type { z } from 'zod'
 
-import { toJsonSchema } from '@/openapi'
+import { toJsonSchema } from '@/openapi/index.js'
 
 type DtoClass = ReturnType<typeof createZodDto>
 

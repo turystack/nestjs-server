@@ -1,1 +1,1 @@
-export * from '@/openapi/openapi.utils'
+export * from '@/openapi/openapi.utils.js'

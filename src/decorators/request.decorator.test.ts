@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { z } from 'zod'
 
-import { createRequestSchema } from '@/decorators/request.decorator'
+import { createRequestSchema } from '@/decorators/request.decorator.js'
 
 describe('Request decorator', () => {
   describe('createRequestSchema', () => {

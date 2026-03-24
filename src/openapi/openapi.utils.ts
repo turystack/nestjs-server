@@ -1,5 +1,8 @@
 import type { OpenAPIObject } from '@nestjs/swagger'
-import type { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface'
+import type {
+	ReferenceObject,
+	SchemaObject,
+} from '@nestjs/swagger/dist/interfaces/open-api-spec.interface.js'
 import { cleanupOpenApiDoc } from 'nestjs-zod'
 import { z } from 'zod'
 
@@ -39,19 +42,19 @@ export function cleanSchema(schema: SchemaObject): SchemaObject {
 	}
 
 	if (cleaned.allOf) {
-		cleaned.allOf = cleaned.allOf.map((item) =>
+		cleaned.allOf = cleaned.allOf.map((item: SchemaObject | ReferenceObject) =>
 			cleanSchema(item as SchemaObject),
 		)
 	}
 
 	if (cleaned.anyOf) {
-		cleaned.anyOf = cleaned.anyOf.map((item) =>
+		cleaned.anyOf = cleaned.anyOf.map((item: SchemaObject | ReferenceObject) =>
 			cleanSchema(item as SchemaObject),
 		)
 	}
 
 	if (cleaned.oneOf) {
-		cleaned.oneOf = cleaned.oneOf.map((item) =>
+		cleaned.oneOf = cleaned.oneOf.map((item: SchemaObject | ReferenceObject) =>
 			cleanSchema(item as SchemaObject),
 		)
 	}

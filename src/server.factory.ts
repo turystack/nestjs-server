@@ -5,9 +5,10 @@ import { apiReference } from '@scalar/nestjs-api-reference'
 import type { Request, Response } from 'express'
 import { json } from 'express'
 
-import { createOpenApiDocument } from '@/openapi'
-import type { ServerOptions } from '@/server.types'
-import { ZodValidationTransform } from '@/transforms'
+import type { ServerOptions } from '@/server.types.js'
+
+import { createOpenApiDocument } from '@/openapi/index.js'
+import { ZodValidationTransform } from '@/transforms/index.js'
 
 const DEFAULT_SCALAR_CSS = `
   .open-api-client-button { display: none !important; }

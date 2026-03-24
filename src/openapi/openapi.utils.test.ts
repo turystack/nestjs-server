@@ -5,7 +5,7 @@ import {
 	cleanSchema,
 	createOpenApiDocument,
 	toJsonSchema,
-} from '@/request.utils'
+} from '@/openapi/openapi.utils.js'
 
 describe('request.utils', () => {
 	describe('cleanSchema', () => {

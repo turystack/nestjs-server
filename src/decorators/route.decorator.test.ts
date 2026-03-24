@@ -3,7 +3,7 @@ import 'reflect-metadata'
 import { describe, expect, it } from 'vitest'
 import { z } from 'zod'
 
-import { Route } from '@/decorators/route.decorator'
+import { Route } from '@/decorators/route.decorator.js'
 
 describe('Route decorator', () => {
   it('should apply to a method without error', () => {

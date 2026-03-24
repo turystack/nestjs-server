@@ -15,24 +15,24 @@ import type { z } from 'zod'
  * ```
  */
 export function createZodValidationException(error: unknown) {
-  const zodError = error as z.ZodError
+	const zodError = error as z.ZodError
 
-  const errors = zodError.issues.map((issue) => {
-    return {
-      code: issue.code,
-      message: issue.message,
-      path: issue.path.join('.'),
-    }
-  })
+	const errors = zodError.issues.map((issue) => {
+		return {
+			code: issue.code,
+			message: issue.message,
+			path: issue.path.join('.'),
+		}
+	})
 
-  return new BadRequestException({
-    errors,
-    message: 'Bad Request Error',
-    statusCode: 400,
-  })
+	return new BadRequestException({
+		errors,
+		message: 'Bad Request Error',
+		statusCode: 400,
+	})
 }
 
 /** Global validation pipe (auto-configured by {@link Server.create}). Uses {@link createZodValidationException} for error formatting. */
 export const ZodValidationTransform = createZodValidationPipe({
-  createValidationException: createZodValidationException,
+	createValidationException: createZodValidationException,
 })

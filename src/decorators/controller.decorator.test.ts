@@ -5,7 +5,7 @@ import { ApiExtraModels, ApiTags } from '@nestjs/swagger'
 import { describe, expect, it, vi } from 'vitest'
 import { z } from 'zod'
 
-import { Controller } from '@/decorators/controller.decorator'
+import { Controller } from '@/decorators/controller.decorator.js'
 
 vi.mock('@nestjs/common', async (importOriginal) => {
   const actual = (await importOriginal()) as Record<string, unknown>

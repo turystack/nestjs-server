@@ -1,7 +1,7 @@
 import { createParamDecorator, type ExecutionContext } from '@nestjs/common'
 import type { z } from 'zod'
 
-import { createZodValidationException } from '@/transforms'
+import { createZodValidationException } from '@/transforms/index.js'
 
 /** Zod schemas for each part of an incoming HTTP request. */
 export type RequestSchema = {
