@@ -11,13 +11,14 @@ import { createOpenApiDocument } from '@/openapi/index.js'
 import { ZodValidationTransform } from '@/transforms/index.js'
 
 const DEFAULT_SCALAR_CSS = `
-  .open-api-client-button { display: none !important; }
+	.open-api-client-button { display: none !important; }
   .agent-button-container { display: none !important; }
 	.scalar-mcp-layer-link { display: none !important; }
+	.scalar-card-checkbox { display: none !important; }
+	.flex.gap-1.5 { display: none !important; }
   a[href="https://www.scalar.com"] { display: none !important; }
-  label[data-v-4f7e7d03] { display: none !important; }
-  button[data-v-9cc2ab84].bg-sidebar-b-search { display: none !important; }
-  div[data-v-0b1e2255].badge { display: none !important; }
+	button.bg-sidebar-b-search.text-sidebar-c-2 { display: none !important; }
+	div:has(> .badge) { display: none !important; }
 `
 
 type Module = new (...args: unknown[]) => unknown
@@ -108,10 +109,17 @@ export const Server = {
 		})
 
 		if (docs) {
+			const customCss: string = [
+				DEFAULT_SCALAR_CSS,
+				docs.customCss,
+			]
+				.filter(Boolean)
+				.join('\n')
+
 			http.use(
 				`/${globalPrefix}/reference`,
 				apiReference({
-					customCss: docs.customCss ?? DEFAULT_SCALAR_CSS,
+					customCss,
 					documentDownloadType: 'none',
 					favicon: docs.favicon,
 					pageTitle: options.title,
