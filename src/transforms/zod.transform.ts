@@ -1,3 +1,4 @@
+import type { PipeTransform, Type } from '@nestjs/common'
 import { BadRequestException } from '@nestjs/common'
 import { createZodValidationPipe } from 'nestjs-zod'
 import type { z } from 'zod'
@@ -33,6 +34,7 @@ export function createZodValidationException(error: unknown) {
 }
 
 /** Global validation pipe (auto-configured by {@link Server.create}). Uses {@link createZodValidationException} for error formatting. */
-export const ZodValidationTransform = createZodValidationPipe({
-	createValidationException: createZodValidationException,
-})
+export const ZodValidationTransform: Type<PipeTransform> =
+	createZodValidationPipe({
+		createValidationException: createZodValidationException,
+	})

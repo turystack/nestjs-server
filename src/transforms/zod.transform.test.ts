@@ -102,8 +102,8 @@ describe('createZodValidationException', () => {
 		})
 
 		if (result.success) {
-			throw new Error('Expected failure')		
-    }
+			throw new Error('Expected failure')
+		}
 
 		const exception = createZodValidationException(result.error)
 		const response = exception.getResponse() as Record<string, unknown>

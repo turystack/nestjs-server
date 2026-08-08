@@ -1,18 +1,18 @@
 import { createParamDecorator, type ExecutionContext } from '@nestjs/common'
 import type { z } from 'zod'
 
-import { createZodValidationException } from '@/transforms/index.js'
+import { createZodValidationException } from '@/transforms/zod.transform.js'
 
 /** Zod schemas for each part of an incoming HTTP request. */
 export type RequestSchema = {
-  /** Query-string validation schema. */
-  query?: z.ZodType
-  /** URL path-parameter validation schema. */
-  params?: z.ZodType
-  /** Request body validation schema. */
-  body?: z.ZodType
-  /** Header validation schema. */
-  headers?: z.ZodType
+	/** Query-string validation schema. */
+	query?: z.ZodType
+	/** URL path-parameter validation schema. */
+	params?: z.ZodType
+	/** Request body validation schema. */
+	body?: z.ZodType
+	/** Header validation schema. */
+	headers?: z.ZodType
 }
 
 /**
@@ -33,29 +33,43 @@ export type RequestSchema = {
  * ```
  */
 export type RequestInput<
-  T extends Omit<RequestSchema, 'request'> = RequestSchema,
+	T extends Omit<RequestSchema, 'request'> = RequestSchema,
 > = {
-  query: T['query'] extends z.ZodType ? z.infer<T['query']> : undefined
-  params: T['params'] extends z.ZodType ? z.infer<T['params']> : undefined
-  body: T['body'] extends z.ZodType ? z.infer<T['body']> : undefined
-  headers: T['headers'] extends z.ZodType
-    ? z.infer<T['headers']>
-    : Record<string, string>
-  /** Raw request body buffer (useful for webhook signature verification). */
-  rawBody: Buffer
+	query: T['query'] extends z.ZodType ? z.infer<T['query']> : undefined
+	params: T['params'] extends z.ZodType ? z.infer<T['params']> : undefined
+	body: T['body'] extends z.ZodType ? z.infer<T['body']> : undefined
+	headers: T['headers'] extends z.ZodType
+		? z.infer<T['headers']>
+		: Record<string, string>
+	/** Client IP resolved from `x-forwarded-for` with fallback to the socket. */
+	ip: string | null
+	/** Raw request body buffer (useful for webhook signature verification). */
+	rawBody: Buffer
+}
+
+function resolveRequestIp(request: {
+	headers: Record<string, string | string[] | undefined>
+	ip?: string
+}): string | null {
+	const forwardedFor = request.headers['x-forwarded-for']
+	const forwardedClientIp = Array.isArray(forwardedFor)
+		? forwardedFor[0]
+		: forwardedFor?.split(',')[0]
+
+	return forwardedClientIp?.trim() || request.ip || null
 }
 
 function parseRequestParams<T extends z.ZodSchema>(
-  schema: T,
-  data: unknown,
+	schema: T,
+	data: unknown,
 ): z.infer<T> {
-  const result = schema.safeParse(data)
+	const result = schema.safeParse(data)
 
-  if (!result.success) {
-    throw createZodValidationException(result.error)
-  }
+	if (!result.success) {
+		throw createZodValidationException(result.error)
+	}
 
-  return result.data
+	return result.data
 }
 
 /**
@@ -71,7 +85,7 @@ function parseRequestParams<T extends z.ZodSchema>(
  * ```
  */
 export function createRequestSchema<T extends RequestSchema>(schema: T) {
-  return schema
+	return schema
 }
 
 /**
@@ -96,33 +110,41 @@ export function createRequestSchema<T extends RequestSchema>(schema: T) {
  * }
  * ```
  */
+export const requestFactory = <T extends RequestSchema>(
+	schema: T | undefined,
+	ctx: ExecutionContext,
+): RequestInput<T> => {
+	const request = ctx.switchToHttp().getRequest()
+
+	const result: Record<string, unknown> = {
+		body: undefined,
+		headers: request.headers,
+		ip: resolveRequestIp(request),
+		params: undefined,
+		query: undefined,
+		rawBody: request.rawBody,
+	}
+
+	if (schema?.headers) {
+		result.headers = parseRequestParams(schema.headers, request.headers)
+	}
+
+	if (schema?.params) {
+		result.params = parseRequestParams(schema.params, request.params)
+	}
+
+	if (schema?.query) {
+		result.query = parseRequestParams(schema.query, request.query)
+	}
+
+	if (schema?.body) {
+		result.body = parseRequestParams(schema.body, request.body)
+	}
+
+	return result as RequestInput<T>
+}
+
 export const Request = <T extends RequestSchema>(schema?: T) =>
-  createParamDecorator((_data: unknown, ctx: ExecutionContext) => {
-    const request = ctx.switchToHttp().getRequest()
-
-    const result: Record<string, unknown> = {
-      body: undefined,
-      headers: request.headers,
-      params: undefined,
-      query: undefined,
-      rawBody: request.rawBody,
-    }
-
-    if (schema?.headers) {
-      result.headers = parseRequestParams(schema.headers, request.headers)
-    }
-
-    if (schema?.params) {
-      result.params = parseRequestParams(schema.params, request.params)
-    }
-
-    if (schema?.query) {
-      result.query = parseRequestParams(schema.query, request.query)
-    }
-
-    if (schema?.body) {
-      result.body = parseRequestParams(schema.body, request.body)
-    }
-
-    return result as RequestInput<T>
-  })()
+	createParamDecorator((_data: unknown, ctx: ExecutionContext) =>
+		requestFactory(schema, ctx),
+	)()

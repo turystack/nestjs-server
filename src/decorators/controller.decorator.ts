@@ -1,22 +1,28 @@
 import {
-  applyDecorators,
-  Controller as NestController,
-  type ControllerOptions as NestControllerOptions,
+	applyDecorators,
+	Controller as NestController,
+	type ControllerOptions as NestControllerOptions,
 } from '@nestjs/common'
 import { ApiExtraModels, ApiTags } from '@nestjs/swagger'
-import { createZodDto } from 'nestjs-zod'
 import type { z } from 'zod'
 
+import {
+	registerComponentSchema,
+	toJsonSchema,
+} from '@/openapi/openapi.utils.js'
+
 type SchemaDefinition = {
-  schema: z.ZodSchema
+	schema: z.ZodSchema
 }
 
 /** Options for the {@link Controller} decorator. */
 type ControllerOptions = NestControllerOptions & {
-  /** Swagger tag name for grouping endpoints. */
-  tag: string
-  /** Extra Zod schemas to register as Swagger models (key = model name). */
-  schemas?: Record<string, SchemaDefinition>
+	/** Swagger tag name for grouping endpoints. */
+	tag: string
+	/** Route prefix prepended to all routes (e.g., `'ops'` → `api/v1/ops/...`). Core controllers omit this. */
+	prefix?: string
+	/** Extra Zod schemas to register as named OpenAPI models (key = model name). */
+	schemas?: Record<string, SchemaDefinition>
 }
 
 /**
@@ -24,29 +30,44 @@ type ControllerOptions = NestControllerOptions & {
  *
  * @example
  * ```ts
- * import { Controller } from '@turystack/nestjs-server'
+ * import { Controller } from '@/infrastructure/server/decorators/controller.decorator'
  *
- * @Controller({ prefix: 'users', tag: 'Users' })
+ * @Controller({
+ *   path: 'users',
+ *   prefix: 'ops',
+ *   tag: 'Users',
+ *   schemas: { User: { schema: userResponse } },
+ * })
  * class UsersController {}
  * ```
  */
 export function Controller(options: ControllerOptions): ClassDecorator {
-  const { tag, schemas, ...controllerOptions } = options
+	const { tag, prefix, schemas, ...controllerOptions } = options
 
-  const decorators: ClassDecorator[] = [
-    NestController(controllerOptions),
-    ApiTags(tag),
-  ]
+	if (prefix && controllerOptions.path) {
+		controllerOptions.path = `${prefix}/${controllerOptions.path}`
+	} else if (prefix) {
+		controllerOptions.path = prefix
+	}
 
-  if (schemas && Object.keys(schemas).length > 0) {
-    const dtoClasses = Object.entries(schemas).map(([name, definition]) => {
-      const DtoClass = createZodDto(definition.schema)
-      Object.defineProperty(DtoClass, 'name', { value: name })
-      return DtoClass
-    })
+	const decorators: ClassDecorator[] = [
+		NestController(controllerOptions),
+		ApiTags(tag),
+	]
 
-    decorators.push(ApiExtraModels(...dtoClasses))
-  }
+	if (schemas && Object.keys(schemas).length > 0) {
+		const dtoClasses = Object.entries(schemas).map(([name, definition]) => {
+			registerComponentSchema(name, toJsonSchema(definition.schema))
 
-  return applyDecorators(...decorators)
+			const ModelClass = class {}
+			Object.defineProperty(ModelClass, 'name', {
+				value: name,
+			})
+			return ModelClass
+		})
+
+		decorators.push(ApiExtraModels(...dtoClasses))
+	}
+
+	return applyDecorators(...decorators)
 }
