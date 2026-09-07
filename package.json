@@ -2,7 +2,7 @@
 	"name": "@turystack/nestjs-server",
 	"description": "NestJS bootstrap factory with Swagger/OpenAPI, Scalar reference, Zod validation, and response transforms.",
 	"private": false,
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"type": "module",
 	"packageManager": "pnpm@10.12.3",
 	"sideEffects": false,
