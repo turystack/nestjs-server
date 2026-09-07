@@ -1,3 +1,4 @@
+import type { ArgumentMetadata, PipeTransform } from '@nestjs/common'
 import {
 	applyDecorators,
 	Delete,
@@ -6,6 +7,7 @@ import {
 	Patch,
 	Post,
 	Put,
+	UsePipes,
 	Version,
 } from '@nestjs/common'
 import {
@@ -21,6 +23,7 @@ import type { z } from 'zod'
 
 import { EXCEPTION_SCHEMA_REF } from '@/openapi/openapi.errors.js'
 import { toJsonSchema } from '@/openapi/openapi.utils.js'
+import { createZodValidationException } from '@/transforms/zod.transform.js'
 
 /** Zod schemas for request validation (params, query, body, headers). */
 export type RouteParameters = {
@@ -223,10 +226,45 @@ function createHeaderDecorators(
 	})
 }
 
-function createBodyDecorator(body: z.ZodSchema): MethodDecorator {
-	return ApiBody({
-		schema: toJsonSchema(body, 'input'),
-	})
+/**
+ * Validates the request body against the schema the route declares.
+ *
+ * `parameters.body` used to produce documentation and nothing else: the schema
+ * appeared in the OpenAPI document, the handler received whatever arrived, and
+ * a required field simply came through as `undefined`. `ARC-DEL-1` says the
+ * delivery boundary validates shape, and it was the one thing the boundary did
+ * not do — a request missing a required field reached the use case, which then
+ * failed somewhere further in with a status that described the wrong problem.
+ *
+ * It runs only on the whole body. `@Body('field')` asks for one property, and
+ * checking a property against the schema for the object would reject every one
+ * of them.
+ */
+class ZodBodyValidationPipe implements PipeTransform {
+	constructor(private readonly schema: z.ZodSchema) {}
+
+	transform(value: unknown, metadata: ArgumentMetadata): unknown {
+		if (metadata.type !== 'body' || metadata.data !== undefined) {
+			return value
+		}
+
+		const result = this.schema.safeParse(value)
+
+		if (!result.success) {
+			throw createZodValidationException(result.error)
+		}
+
+		return result.data
+	}
+}
+
+function createBodyDecorators(body: z.ZodSchema): MethodDecorator[] {
+	return [
+		ApiBody({
+			schema: toJsonSchema(body, 'input'),
+		}),
+		UsePipes(new ZodBodyValidationPipe(body)),
+	]
 }
 
 function createResponseDecorators(
@@ -493,7 +531,7 @@ export function Route(options: RouteOptions): MethodDecorator {
 		}
 
 		if (parameters?.body) {
-			decorators.push(createBodyDecorator(parameters.body))
+			decorators.push(...createBodyDecorators(parameters.body))
 		}
 
 		if (responses) {
