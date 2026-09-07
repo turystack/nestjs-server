@@ -85,6 +85,18 @@ export type ServerOptions = {
 	projects?: ApiProject[]
 	/** Extra global interceptors registered before the built-in response transforms. */
 	interceptors?: NestInterceptor[]
+	/**
+	 * Browser origins allowed to call this API with credentials.
+	 *
+	 * A session lives in an httpOnly cookie, and a cookie is only sent when the
+	 * response names the origin exactly: a browser refuses
+	 * `Access-Control-Allow-Origin: *` for a credentialed request. Omitting this
+	 * leaves the permissive wildcard, which works for a public API and cannot
+	 * work for a signed-in one.
+	 */
+	cors?: {
+		origins: string[]
+	}
 }
 
 /**

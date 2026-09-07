@@ -152,6 +152,42 @@ describe('Server.create', () => {
 		expect(apiReference).not.toHaveBeenCalled()
 	})
 
+	it('should name the allowed origins and permit credentials when cors is given', async () => {
+		const { app } = createAppMock()
+		mockCreate(app)
+
+		await Server.create(AppModule, {
+			cors: {
+				origins: [
+					'http://localhost:3200',
+				],
+			},
+			description: 'Test API description',
+			port: 3200,
+			title: 'Test API',
+		})
+
+		expect(app.enableCors).toHaveBeenCalledWith({
+			credentials: true,
+			origin: [
+				'http://localhost:3200',
+			],
+		})
+	})
+
+	it('should keep the permissive default when cors is not given', async () => {
+		const { app } = createAppMock()
+		mockCreate(app)
+
+		await Server.create(AppModule, {
+			description: 'Test API description',
+			port: 3200,
+			title: 'Test API',
+		})
+
+		expect(app.enableCors).toHaveBeenCalledWith({})
+	})
+
 	it('should resolve options from the typed config factory after bootstrap', async () => {
 		const { app } = createAppMock()
 		const config = {

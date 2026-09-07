@@ -86,6 +86,7 @@ export const Server = {
 			docs,
 			projects,
 			interceptors = [],
+			cors,
 		} = resolvedOptions
 
 		app.getHttpAdapter().getInstance().set('trust proxy', 1)
@@ -98,7 +99,14 @@ export const Server = {
 			app.use(correlation)
 		}
 
-		app.enableCors()
+		app.enableCors(
+			cors
+				? {
+						credentials: true,
+						origin: cors.origins,
+					}
+				: {},
+		)
 		app.setGlobalPrefix(globalPrefix)
 		app.enableVersioning({
 			type: VersioningType.URI,
